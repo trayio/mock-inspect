@@ -1,0 +1,29 @@
+{
+    "extends": "rickschubert",
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "modules": true
+      }
+    },
+    "plugins": ["@typescript-eslint", "jest"],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js"],
+          "paths": ["."]
+        }
+      }
+    },
+    "rules": {
+      "no-console": 0,
+      "no-template-curly-in-string": 0,
+      "no-await-in-loop": 0
+    },
+    "env": {
+      "jest/globals": true
+    }
+  }

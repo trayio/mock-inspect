@@ -1,0 +1,64 @@
+{
+    "name": "@trayio/mock-request",
+    "version": "5.2.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "rm -rf dist && tsc",
+        "lint": "./node_modules/eslint/bin/eslint.js 'src/**/*.ts'",
+        "prettify": "prettier '**/*.ts' --write",
+        "lintFull": "npm run prettify && npm run lint -- --fix",
+        "watch": "npm run build -- --watch",
+        "test": "jest",
+        "test:coverage": "npm test -- --coverage",
+        "test:mutation": "stryker run",
+        "ciPublish": "bash scripts/ciPublish.sh"
+    },
+    "author": "Rick Schubert",
+    "license": "ISC",
+    "dependencies": {
+        "@trayio/graphql-query-to-json": "^1.0.2",
+        "expect": "^26.1.0",
+        "graphql": "^15.3.0",
+        "graphql-tools": "^6.2.4",
+        "lodash.isobject": "^3.0.2",
+        "msw": "^0.21.3",
+        "query-string": "^6.13.1",
+        "uuid": "^8.2.0",
+        "uuid-readable": "0.0.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.4",
+        "@types/node": "^14.0.14",
+        "@typescript-eslint/eslint-plugin": "^3.5.0",
+        "@typescript-eslint/parser": "^3.5.0",
+        "eslint": "^7.4.0",
+        "eslint-config-rickschubert": "^1.0.11",
+        "eslint-plugin-jest": "^23.18.0",
+        "husky": "^4.2.5",
+        "jest": "^26.1.0",
+        "jest-json-schema-extended": "^0.2.0",
+        "lint-staged": "^10.2.11",
+        "lodash.clonedeep": "^4.5.0",
+        "node-fetch": "^2.6.0",
+        "prettier": "^2.0.5",
+        "ts-jest": "^26.1.1",
+        "typescript": "^3.9.6",
+        "@stryker-mutator/core": "^4.1.2",
+        "@stryker-mutator/jest-runner": "^4.1.2",
+        "@stryker-mutator/typescript-checker": "^4.1.2"
+    },
+    "lint-staged": {
+        "*.js": [
+            "prettier --write",
+            "./node_modules/eslint/bin/eslint.js --fix"
+        ],
+        "*.ts": [
+            "prettier --write",
+            "./node_modules/eslint/bin/eslint.js --fix"
+        ],
+        "*.json": [
+            "prettier --write"
+        ]
+    }
+}
