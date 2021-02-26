@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "allowJs": false,
+        "module": "commonjs",
+        "target": "es5",
+        "strict": false,
+        "declaration": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "rootDir": "src",
+        "skipLibCheck": true
+    },
+    "include": ["./**/*"],
+    "exclude": ["node_modules", "dist", "prettier.config.js"]
+}
