@@ -12,7 +12,7 @@
         "test": "jest",
         "test:coverage": "npm test -- --coverage",
         "test:mutation": "stryker run",
-        "ciPublish": "bash scripts/ciPublish.sh"
+        "updateTestCoverage": "node scripts/updateTestCoverage.js"
     },
     "author": "Tray.io",
     "homepage": "https://github.com/trayio/mock-inspect",
