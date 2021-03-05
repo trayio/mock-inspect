@@ -24,5 +24,5 @@ jobs:
         TRAY_DEV_ACCOUNT_WORKFLOW_UNIVERSAL_CSRF_TOKEN: ${{ secrets.TRAY_DEV_ACCOUNT_WORKFLOW_UNIVERSAL_CSRF_TOKEN }}
     - run: npm ci
     - run: npm run build
-    - run: npm test:coverage
+    - run: npm run test:coverage
     - run: npm run updateTestCoverage
