@@ -298,7 +298,7 @@ By default, network requests that aren't expected to be mocked will throw an err
 ```
 
 # Unresolved promises in tests, i.e. React tests with jest
-Currently, [jest provides no API to flush promises](https://github.com/facebook/jest/issues/2157) on its own. But flushing promises is necessary to have jest execute all built-up promises - and network responses are also promises. Therefore, you must flush the built-up promises accordingly manually. For this use case, we recommend using [the async utility `waitFor` which is provided by the "Testing Library" project](https://testing-library.com/docs/dom-testing-library/api-async#waitfor). Alternatively, you could create your own function which flushes a promise and call it as many times as needed:
+Currently, [jest provides no API to flush promises](https://github.com/facebook/jest/issues/2157) on its own. But flushing promises is necessary to have jest execute all built-up promises - and network responses are also promises. Therefore, you must flush the built-up promises manually. For this use case, we recommend using [the async utility `waitFor` which is provided by the "Testing Library" project](https://testing-library.com/docs/dom-testing-library/api-async#waitfor). Alternatively, you could create your own function which flushes a promise and call it as many times as needed:
 
 ```js
 export const flushPromises = async () => {
