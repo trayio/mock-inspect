@@ -10,11 +10,11 @@ mock-inspect
 
 Mock network requests and make assertions about how these requests happened. Supports auto-mocking of graphQL requests given a valid schema.
 
-1. [Available functions and classes](##available-functions-and-classes)
-2. [Using GraphQL](##using-graphql)
-3. [Setting up your test suite](##setting-up-your-test-suite)
-4. [Unresolved promises in tests, i.e. React tests with jest](##unresolved-promises-in-tests-ie-react-tests-with-jest)
-5. [Development](##development)
+1. [Available functions and classes](#available-functions-and-classes)
+2. [Using GraphQL](#using-graphql)
+3. [Setting up your test suite](#setting-up-your-test-suite)
+4. [Unresolved promises in tests, i.e. React tests with jest](#unresolved-promises-in-tests-ie-react-tests-with-jest)
+5. [Development](#development)
 
 # Available functions and classes
 
@@ -185,7 +185,7 @@ logMockedRequests()
 We also support GraphQL - both for creating mocks and asserting on these mocks.
 
 ## Mocking graphQL calls by query or mutation name
-As outlined [in the section about mockRequest](###using-mockrequest-for-graphql), you have to provide an additional property to pass in the query or mutation name you are mocking so that we know you are mocking a graphQL request.
+As outlined [in the section about mockRequest](#using-mockrequest-for-graphql), you have to provide an additional property to pass in the query or mutation name you are mocking so that we know you are mocking a graphQL request.
 
 ## Auto-generating graphQL responses
 If desired, we can automatically generate a random graphQL response for you. That way, you don't have to manually define the `responseBody` property. To do so, you need to provide us with the graphQL schema of the request that will be made, in the property `graphQLAutoMocking.schema`. (When `graphQLAutoMocking.schema` **and** `responseBody` is given, we will always use the `responseBody` property.)
