@@ -83,7 +83,7 @@ describe("mockRequestFromContract examples", () => {
             expectedError = error
         }
         expect(expectedError.message).toBe(
-            `You cannot use the method "expectRequestMadeMatchingContract" like this. It looks like this mocked request was created from a contract - in that case, you cannot pass in a contract to expectRequestMadeMatchingContract(). Just call it without any arguments, we will do the rest for you!`
+            `You cannot use the method "expectRequestMadeMatchingContract" like this. It looks like this mocked request was created from a contract; in that case, you cannot pass in a contract to expectRequestMadeMatchingContract(). Just call it without any arguments, we will do the rest for you!`
         )
     })
 })

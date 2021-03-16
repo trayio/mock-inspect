@@ -1,8 +1,9 @@
 {
     "name": "mock-inspect",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "",
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && tsc",
         "lint": "./node_modules/eslint/bin/eslint.js 'src/**/*.ts'",
