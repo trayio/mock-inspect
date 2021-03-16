@@ -19,12 +19,12 @@ export interface GraphQLAutoMockingFixedArrayLengths {
 export interface MockResponseOptions {
     /**
      * The URL of the network request you want to mock. String or Regular
-     * Expression. When mocking graphQL requests, you can leave out this property
-     * - in that case we would simply apply the mock to any graphQL request matching
-     * the query or mutation name, no matter to which URL. But you can still pass
-     * the requestPattern also with graphQL, that way we would bind the mock responses
-     * only to the specific pattern given - useful if your test needs to ping
-     * two different graphQL APIs. Optional.
+     * Expression. When mocking graphQL requests, you can leave out this
+     * property; in that case we would simply apply the mock to any graphQL
+     * request matching the query or mutation name, no matter to which URL. But
+     * you can still pass the requestPattern also with graphQL, that way we
+     * would bind the mock responses only to the specific pattern given - useful
+     * if your test needs to ping two different graphQL APIs. Optional.
      */
     requestPattern?: Pattern
     /**
