@@ -41,7 +41,7 @@ const loginRequest = mockRequest({
 // ... make a network request somewhere in your actual code ...
 // Use available methods on MockedRequest to make assertions
 // about how the network request has been made.
-loginRequest.expectNetworkRequestToHaveBeenMade()
+loginRequest.expectRequestToHaveBeenMade()
 ```
 
 ### Using mockRequest for graphQL
@@ -99,13 +99,13 @@ loginRequest.expectRequestMadeMatchingContract()
 
 Every time you mock a request, you get hold of this class which has the following methods:
 
-### expectNetworkRequestToHaveBeenMade
+### expectRequestToHaveBeenMade
 
 Asserts that the network request you mocked also has been called.
 
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectNetworkRequestToHaveBeenMade()
+loginRequest.expectRequestToHaveBeenMade()
 ```
 
 ### expectNetworkRequestToNotHaveBeenMade

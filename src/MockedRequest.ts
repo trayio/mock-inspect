@@ -36,7 +36,7 @@ export class MockedRequest {
     }
 
     // PUBLIC METHODS **********************************************************
-    public expectNetworkRequestToHaveBeenMade() {
+    public expectRequestToHaveBeenMade() {
         this.expectNetworkRequestToHaveBeenMadeFactory(true)
     }
 
@@ -49,7 +49,7 @@ export class MockedRequest {
             this.stacktrace,
             passedInContract
         )
-        this.expectNetworkRequestToHaveBeenMade()
+        this.expectRequestToHaveBeenMade()
         const requestMade = mockedRequests[this.reference]
         const requestPayload = requestMade.body
         const contractUrlPieces = new URL(contract.request.url)
@@ -85,7 +85,7 @@ export class MockedRequest {
         requestPayload,
         requestHeaders,
     }: ExpectRequestMadeMatchingInput) {
-        this.expectNetworkRequestToHaveBeenMade()
+        this.expectRequestToHaveBeenMade()
         const requestMade = mockedRequests[this.reference]
         if (requestPayload) {
             compareRequestBodies(

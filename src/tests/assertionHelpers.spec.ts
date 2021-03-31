@@ -12,7 +12,7 @@ describe("Assertion Helpers", () => {
         await request({
             uri: "https://www.google.com/some/cities/here",
         })
-        citiesRequest.expectNetworkRequestToHaveBeenMade()
+        citiesRequest.expectRequestToHaveBeenMade()
     })
 
     it("Fails if expectation of network request having been made is incorrect", async () => {
@@ -23,7 +23,7 @@ describe("Assertion Helpers", () => {
         })
         let expectedErrorWhenRequestNotMade
         try {
-            citiesRequest.expectNetworkRequestToHaveBeenMade()
+            citiesRequest.expectRequestToHaveBeenMade()
         } catch (error) {
             expectedErrorWhenRequestNotMade = error
         }
