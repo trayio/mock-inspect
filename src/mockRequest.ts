@@ -28,7 +28,6 @@ type InternalResponseInfo = {
     statusCode: number
     body: any
     headers: ResponseHeadersObject
-    graphQLQueryName?: string
 }
 
 export type MockedRequestInternalEntry = {
@@ -162,7 +161,6 @@ export const mockRequestBase = ({
         body,
         headers: mockOpts.responseHeaders,
         statusCode,
-        graphQLQueryName: mockOpts.graphQLQueryName,
     })
 
     return new MockedRequest(reference, contract, stacktrace)
