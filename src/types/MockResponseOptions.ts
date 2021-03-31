@@ -28,13 +28,15 @@ export interface MockResponseOptions {
      */
     requestPattern?: Pattern
     /**
-     * If you are mocking a graphQL query, enter the query OR mutation name.
-     * If not present, we will assume you are mocking a REST API. Optional.
+     * If you are mocking a graphQL query, enter the query name. If neither
+     * `graphQLQueryName` nor `graphQLMutationName` are present, we will assume
+     * you are mocking a REST API. Optional.
      */
     graphQLQueryName?: string
     /**
-     * If you are mocking a graphQL query, enter the query OR mutation name.
-     * If not present, we will assume you are mocking a REST API. Optional.
+     * If you are mocking a graphQL mutation, enter the mutation name. If
+     * neither `graphQLQueryName` nor `graphQLMutationName` are present, we will
+     * assume you are mocking a REST API. Optional.
      */
     graphQLMutationName?: string
     /**
