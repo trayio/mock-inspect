@@ -18,11 +18,11 @@ const exampleRequestJson = async (
 const regexForErrorInThisFile = /Error: \n {4}at .+\/src\/tests\/stacktrace\.spec\.ts:\d+:\d+/i
 
 describe("Stack traces stop at calling function, don't include mock-inspect specifics", () => {
-    it("expectNetworkRequestToHaveBeenMade()", () => {
+    it("expectRequestToHaveBeenMade()", () => {
         const req = mockRequest({requestPattern: "/this/is/my/URL"})
         let expectedError
         try {
-            req.expectNetworkRequestToHaveBeenMade()
+            req.expectRequestToHaveBeenMade()
         } catch (error) {
             expectedError = error
         }

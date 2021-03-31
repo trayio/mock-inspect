@@ -48,14 +48,14 @@ describe("Mocking graphQL requests", () => {
         const firstCalledButSecondMocked = await exampleGraphQLPostRequestJson(
             `query GetSecondThings { animals { cats } }`
         )
-        secondMockedRequest.expectNetworkRequestToHaveBeenMade()
+        secondMockedRequest.expectRequestToHaveBeenMade()
         firstMockedRequest.expectNetworkRequestToNotHaveBeenMade()
         expect(firstCalledButSecondMocked.body).toEqual(secondThings)
 
         const secondCalledButFirstMocked = await exampleGraphQLPostRequestJson(
             `query GetFirstThings { animals { cats } }`
         )
-        secondMockedRequest.expectNetworkRequestToHaveBeenMade()
+        secondMockedRequest.expectRequestToHaveBeenMade()
         expect(secondCalledButFirstMocked.body).toEqual(firstThings)
     })
 
@@ -74,11 +74,11 @@ describe("Mocking graphQL requests", () => {
         const firstCalledButSecondMocked = await exampleGraphQLGetRequestJson(
             `query GetSecondThings { animals { cats } }`
         )
-        secondMockedRequest.expectNetworkRequestToHaveBeenMade()
+        secondMockedRequest.expectRequestToHaveBeenMade()
         const secondCalledButFirstMocked = await exampleGraphQLGetRequestJson(
             `query GetFirstThings { animals { cats } }`
         )
-        firstMockedRequest.expectNetworkRequestToHaveBeenMade()
+        firstMockedRequest.expectRequestToHaveBeenMade()
 
         expect(firstCalledButSecondMocked.body).toEqual({
             entries: "two deux duo zwei",
@@ -88,7 +88,7 @@ describe("Mocking graphQL requests", () => {
         })
     })
 
-    it("expectNetworkRequestToHaveBeenMade() applies to the request that was made using the query name, order doesn't matter", async () => {
+    it("expectRequestToHaveBeenMade() applies to the request that was made using the query name, order doesn't matter", async () => {
         const firstReponse = {entries: "one une uno eins"}
         const secondResponse = {entries: "deux zwei two duo"}
         const firstMockedRequest = mockRequest({
@@ -104,7 +104,7 @@ describe("Mocking graphQL requests", () => {
 
         let expectedErrorOnCheckIfFirstMockedRequestWasCalled
         try {
-            firstMockedRequest.expectNetworkRequestToHaveBeenMade()
+            firstMockedRequest.expectRequestToHaveBeenMade()
         } catch (error) {
             expectedErrorOnCheckIfFirstMockedRequestWasCalled = error
         }
@@ -117,12 +117,12 @@ describe("Mocking graphQL requests", () => {
         const secondMockedCalled = await exampleGraphQLPostRequestJson(
             `query GetSecondThings { animals { cats } }`
         )
-        secondMockedRequest.expectNetworkRequestToHaveBeenMade()
+        secondMockedRequest.expectRequestToHaveBeenMade()
         expect(secondMockedCalled.body).toEqual(secondResponse)
 
         let expectedErrorOnCheckIfFirstMockedRequestWasStillNotCalled
         try {
-            firstMockedRequest.expectNetworkRequestToHaveBeenMade()
+            firstMockedRequest.expectRequestToHaveBeenMade()
         } catch (error) {
             expectedErrorOnCheckIfFirstMockedRequestWasStillNotCalled = error
         }
@@ -135,7 +135,7 @@ describe("Mocking graphQL requests", () => {
         const firstMockedCalled = await exampleGraphQLPostRequestJson(
             `query GetFirstThings { animals { cats } }`
         )
-        firstMockedRequest.expectNetworkRequestToHaveBeenMade()
+        firstMockedRequest.expectRequestToHaveBeenMade()
         expect(firstMockedCalled.body).toEqual(firstReponse)
     })
 

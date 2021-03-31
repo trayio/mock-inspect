@@ -53,7 +53,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expectToMatchSchema(
             response.body as JsonObject,
             strictObject({
@@ -88,7 +88,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expectToMatchSchema(
             response.body as JsonObject,
             strictObject({
@@ -128,7 +128,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                 nameToSearchBy: "Darth Vader",
             }
         )
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expectToMatchSchema(
             response.body as JsonObject,
             strictObject({
@@ -167,7 +167,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expect(response.body).toEqual(fixedResponse)
     })
 
@@ -191,7 +191,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expect((response.body as JsonObject).data.me.name).toEqual(customString)
     })
 
@@ -219,7 +219,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
           }
         }
             `)) as JsonObject
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expect(response.body.data.allStarships.edges[0].node.model).toBe(
             customString
         )
@@ -303,7 +303,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expect((response as JsonObject).body.data.users.length).toBe(
             fixedLength
         )
@@ -330,7 +330,7 @@ describe("Automatic generation of graphQL responses depending on query and suppl
                     }
                 }
             `)
-        mockedGQLRequestWithSchema.expectNetworkRequestToHaveBeenMade()
+        mockedGQLRequestWithSchema.expectRequestToHaveBeenMade()
         expect(
             (response as JsonObject).body.data.users.length
         ).toBeGreaterThanOrEqual(fixedLength[0])
