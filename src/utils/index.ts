@@ -6,7 +6,8 @@ import {NetworkRequestBody, JsonObject} from "../types/generalTypes"
 import {graphQlQueryToJson} from "graphql-query-to-json"
 // eslint-disable-next-line no-unused-vars
 import {RequestHeadersNormalised} from "../types/ExpectRequestMadeMatchingInput"
-import {mockedRequests} from "../mockRequest"
+// eslint-disable-next-line no-unused-vars
+import {RequestResponseInfo} from "../mockRequest"
 // eslint-disable-next-line no-unused-vars
 import {GraphQLAutoMockStartupOptions} from "../types/GraphQLAutoMockStartupOptions"
 import {
@@ -268,23 +269,23 @@ export const isGraphQL = (urlPath: string): boolean => {
     return /\/graphql/i.test(urlPath)
 }
 
-export const updateRequestInfoInMockStore = ({
-    reference,
+export const updateRequestResponseInfo = ({
+    requestResponseInfo,
     body,
     headers,
     url,
     called,
 }: {
-    reference: string
+    requestResponseInfo: RequestResponseInfo
     body: any
     headers: any
     url: string
     called: boolean
 }) => {
-    mockedRequests[reference].body = body
-    mockedRequests[reference].headers = headers
-    mockedRequests[reference].url = url
-    mockedRequests[reference].called = called
+    requestResponseInfo.body = body
+    requestResponseInfo.headers = headers
+    requestResponseInfo.url = url
+    requestResponseInfo.called = called
 }
 
 export const generateMswGraphQLAutoGenerationHandler = ({

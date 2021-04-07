@@ -49,7 +49,7 @@ describe("Mocking graphQL requests", () => {
             `query GetSecondThings { animals { cats } }`
         )
         secondMockedRequest.expectRequestToHaveBeenMade()
-        firstMockedRequest.expectNetworkRequestToNotHaveBeenMade()
+        firstMockedRequest.expectRequestToNotHaveBeenMade()
         expect(firstCalledButSecondMocked.body).toEqual(secondThings)
 
         const secondCalledButFirstMocked = await exampleGraphQLPostRequestJson(

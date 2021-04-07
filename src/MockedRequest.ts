@@ -12,9 +12,8 @@ import {
     throwErrorWithFixedStacktrace,
 } from "./utils"
 import {
-    mockedRequests,
     // eslint-disable-next-line no-unused-vars
-    MockedRequestInternalEntry,
+    RequestResponseInfo,
 } from "./mockRequest"
 // eslint-disable-next-line no-unused-vars
 import {Contract} from "./types/Contract"
@@ -26,11 +25,11 @@ import {ExpectRequestMadeMatchingInput} from "./types/ExpectRequestMadeMatchingI
 
 export class MockedRequest {
     constructor(
-        private reference: string,
+        private requestResponseInfo: RequestResponseInfo,
         private contract: Contract,
         private stacktrace: string
     ) {
-        this.reference = reference
+        this.requestResponseInfo = requestResponseInfo
         this.contract = contract
         this.stacktrace = stacktrace
     }
@@ -40,7 +39,7 @@ export class MockedRequest {
         this.expectNetworkRequestToHaveBeenMadeFactory(true)
     }
 
-    public expectNetworkRequestToNotHaveBeenMade() {
+    public expectRequestToNotHaveBeenMade() {
         this.expectNetworkRequestToHaveBeenMadeFactory(false)
     }
 
@@ -50,7 +49,7 @@ export class MockedRequest {
             passedInContract
         )
         this.expectRequestToHaveBeenMade()
-        const requestMade = mockedRequests[this.reference]
+        const requestMade = this.requestResponseInfo
         const requestPayload = requestMade.body
         const contractUrlPieces = new URL(contract.request.url)
         const requestMadeUrlPieces = new URL(requestMade.url)
@@ -86,7 +85,7 @@ export class MockedRequest {
         requestHeaders,
     }: ExpectRequestMadeMatchingInput) {
         this.expectRequestToHaveBeenMade()
-        const requestMade = mockedRequests[this.reference]
+        const requestMade = this.requestResponseInfo
         if (requestPayload) {
             compareRequestBodies(
                 requestMade.body,
@@ -107,7 +106,7 @@ export class MockedRequest {
     private expectNetworkRequestToHaveBeenMadeFactory(
         expectedToBeMade: boolean
     ) {
-        const hasRequestBeenDone = mockedRequests[this.reference].called
+        const hasRequestBeenDone = this.requestResponseInfo.called
         compareRequestMadeStatusAgainstExpectation(
             hasRequestBeenDone,
             expectedToBeMade,
@@ -137,7 +136,7 @@ export class MockedRequest {
 
     private compareRestRequests(
         requestPayload: NetworkRequestBody,
-        requestMade: MockedRequestInternalEntry,
+        requestMade: RequestResponseInfo,
         contract: Contract
     ) {
         compareRequestBodies(
@@ -174,7 +173,7 @@ export class MockedRequest {
     }
 
     private isGraphQLRequest(): boolean {
-        const requestMade = mockedRequests[this.reference]
+        const requestMade = this.requestResponseInfo
         return isGraphQL(requestMade.url)
     }
 }

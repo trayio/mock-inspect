@@ -108,13 +108,13 @@ const loginRequest = mockRequest({/* mock details go here */})
 loginRequest.expectRequestToHaveBeenMade()
 ```
 
-### expectNetworkRequestToNotHaveBeenMade
+### expectRequestToNotHaveBeenMade
 
 Asserts that the network request you mocked was not called.
 
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectNetworkRequestToNotHaveBeenMade()
+loginRequest.expectRequestToNotHaveBeenMade()
 ```
 
 ### expectRequestMadeMatching
@@ -168,16 +168,6 @@ loginRequest.expectRequestMadeMatchingContract()
 // When created using mockRequest:
 const loginRequest = mockRequest({/* mock details go here */})
 loginRequest.expectRequestMadeMatchingContract(loginContract)
-```
-
-## logMockedRequests
-
-A convenience helper to look behind the scenes of mock-inspect: prints out all the mocks that have been registered during the test.
-
-```js
-const {logMockedRequests} = require("mock-inspect")
-
-logMockedRequests()
 ```
 
 # Using GraphQL

@@ -8,12 +8,12 @@ import {
 // eslint-disable-next-line no-unused-vars
 import {ResponseComposition} from "msw/lib/types/response"
 // eslint-disable-next-line no-unused-vars
-import {InternalReference} from "../mockRequest"
+import {RequestResponseInfo} from "../mockRequest"
 // eslint-disable-next-line no-unused-vars
 import {NetworkResponseBody} from "../types/generalTypes"
 // eslint-disable-next-line no-unused-vars
 import {MockResponseOptions} from "../types/MockResponseOptions"
-import {updateRequestInfoInMockStore} from "../utils"
+import {updateRequestResponseInfo} from "../utils"
 
 export const setResponseBody = (response, body) => {
     const isResponseJson = isObject(body)
@@ -46,12 +46,12 @@ export const makeMswResponseHandler = ({
     mockOpts,
     statusCode,
     body,
-    reference,
+    requestResponseInfo,
     mswRequest,
 }: {
     mswResponder: ResponseComposition
     mswRequest: GraphQLMockedRequest | MswMockedRequest
-    reference: InternalReference
+    requestResponseInfo: RequestResponseInfo
     body: NetworkResponseBody
     statusCode: number
     mockOpts: MockResponseOptions
@@ -61,8 +61,8 @@ export const makeMswResponseHandler = ({
         response.status = statusCode
         setResponseBody(response, body)
         setResponseHeaders(response, mockOpts)
-        updateRequestInfoInMockStore({
-            reference,
+        updateRequestResponseInfo({
+            requestResponseInfo,
             body: mswRequest.body,
             headers: mswRequest.headers,
             url: (mswRequest.url as unknown) as string,
