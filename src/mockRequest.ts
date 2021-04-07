@@ -135,7 +135,7 @@ export const mockRequestBase = ({
             mockOpts,
             body,
             statusCode,
-            requestResponseInfo: requestResponseInfo,
+            requestResponseInfo,
         })
     } else {
         handleRestRequest({
@@ -143,7 +143,7 @@ export const mockRequestBase = ({
             method,
             body,
             statusCode,
-            requestResponseInfo: requestResponseInfo,
+            requestResponseInfo,
         })
     }
 
