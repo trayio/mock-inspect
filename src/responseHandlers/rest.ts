@@ -4,7 +4,7 @@ import {rest} from "msw"
 // eslint-disable-next-line no-unused-vars
 import {NetworkResponseBody} from "../types/generalTypes"
 // eslint-disable-next-line no-unused-vars
-import {InternalReference} from "../mockRequest"
+import {RequestResponseInfo} from "../mockRequest"
 import {makeMswResponseHandler} from "./common"
 import {server} from "../setupAndTeardown"
 
@@ -35,13 +35,13 @@ export const handleRestRequest = ({
     method,
     body,
     statusCode,
-    reference,
+    requestResponseInfo,
 }: {
     mockOpts: MockResponseOptions
     method: string
     body: NetworkResponseBody
     statusCode: number
-    reference: InternalReference
+    requestResponseInfo: RequestResponseInfo
 }) => {
     const restMethod = rest[method.toLowerCase()]
     if (!restMethod) {
@@ -59,7 +59,7 @@ export const handleRestRequest = ({
                 body,
                 statusCode,
                 mockOpts,
-                reference,
+                requestResponseInfo,
             })
         })
     )

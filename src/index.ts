@@ -36,5 +36,4 @@ export {
     setUpNetworkRequestMocking,
     tearDownNetworkRequestMocking,
 } from "./setupAndTeardown"
-export {logMockedRequests} from "./mockRequest"
 export {MockResponseOptions} from "./types/MockResponseOptions"

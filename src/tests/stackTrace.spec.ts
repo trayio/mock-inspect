@@ -29,13 +29,13 @@ describe("Stack traces stop at calling function, don't include mock-inspect spec
         expect(expectedError.stack).toMatch(regexForErrorInThisFile)
     })
 
-    it("expectNetworkRequestToNotHaveBeenMade()", async () => {
+    it("expectRequestToNotHaveBeenMade()", async () => {
         const url = "https://www.google.com/hello"
         const req = mockRequest({requestPattern: url, responseBody: {a: "b"}})
         await exampleRequestJson(url)
         let expectedError
         try {
-            req.expectNetworkRequestToNotHaveBeenMade()
+            req.expectRequestToNotHaveBeenMade()
         } catch (error) {
             expectedError = error
         }

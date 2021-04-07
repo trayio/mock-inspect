@@ -1,5 +1,4 @@
 import * as isObject from "lodash.isobject"
-import * as uuid from "uuid"
 import {MockedRequest} from "./MockedRequest"
 /* eslint-disable no-unused-vars */
 import {
@@ -30,13 +29,11 @@ type InternalResponseInfo = {
     headers: ResponseHeadersObject
 }
 
-export type MockedRequestInternalEntry = {
-    internalRef: InternalReference
+export type RequestResponseInfo = {
     request: InternalRequestInfo
     url: string
     called: boolean
     response: InternalResponseInfo
-    created: number
     /**
      * This property is only used for graphQL requests mocking. It should be set
      * to "true" once a request has been used already in terms of graphQL. This
@@ -48,20 +45,10 @@ export type MockedRequestInternalEntry = {
     headers: MswUsedRequestHeaders
 }
 
-export type InternalReference = string
-
-export const mockedRequests: {
-    [internalRef: string]: MockedRequestInternalEntry
-} = {}
-
-let createdIndex = 0
-
-const createNewInternalMockEntryOnStore = (
-    reference: InternalReference,
+const createRequestResponseInfo = (
     response: InternalResponseInfo
-) => {
-    mockedRequests[reference] = {
-        internalRef: reference,
+): RequestResponseInfo => {
+    return {
         request: {
             body: undefined,
             headers: {},
@@ -72,7 +59,6 @@ const createNewInternalMockEntryOnStore = (
         url: "",
         called: false,
         response,
-        created: ++createdIndex,
         graphQLUsed: false,
         body: undefined,
         headers: undefined,
@@ -134,18 +120,22 @@ export const mockRequestBase = ({
     contract?: Contract
 }): MockedRequest => {
     validateMockOptions(mockOpts)
-    const reference = uuid.v1()
     const statusCode = getStatusCode(mockOpts)
     const method = getMethod(mockOpts)
     const body = getResponseBody(mockOpts)
     const isGraphQL = isGraphQLMock(mockOpts)
 
+    const requestResponseInfo = createRequestResponseInfo({
+        body,
+        headers: mockOpts.responseHeaders,
+        statusCode,
+    })
     if (isGraphQL) {
         handleGraphQLRequest({
             mockOpts,
             body,
             statusCode,
-            reference,
+            requestResponseInfo,
         })
     } else {
         handleRestRequest({
@@ -153,19 +143,9 @@ export const mockRequestBase = ({
             method,
             body,
             statusCode,
-            reference,
+            requestResponseInfo,
         })
     }
 
-    createNewInternalMockEntryOnStore(reference, {
-        body,
-        headers: mockOpts.responseHeaders,
-        statusCode,
-    })
-
-    return new MockedRequest(reference, contract, stacktrace)
-}
-
-export const logMockedRequests = () => {
-    console.log(mockedRequests)
+    return new MockedRequest(requestResponseInfo, contract, stacktrace)
 }

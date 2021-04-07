@@ -6,7 +6,7 @@ import {autoGenerateResponseFromGraphQLSchema} from "../utils/autoGenerateRespon
 import {graphql} from "msw"
 import {makeMswResponseHandler} from "./common"
 // eslint-disable-next-line no-unused-vars
-import {InternalReference} from "../mockRequest"
+import {RequestResponseInfo} from "../mockRequest"
 import {server} from "../setupAndTeardown"
 
 export const shouldAutoGenerateGraphQLResponse = (
@@ -39,12 +39,12 @@ export const handleGraphQLRequest = ({
     mockOpts,
     body,
     statusCode,
-    reference,
+    requestResponseInfo,
 }: {
     mockOpts: MockResponseOptions
     body: NetworkResponseBody
     statusCode: number
-    reference: InternalReference
+    requestResponseInfo: RequestResponseInfo
 }) => {
     const mswGraphQL = mockOpts.requestPattern
         ? graphql.link(mockOpts.requestPattern)
@@ -68,7 +68,7 @@ export const handleGraphQLRequest = ({
                 mockOpts,
                 mswRequest: req,
                 mswResponder: res,
-                reference,
+                requestResponseInfo,
                 statusCode,
             })
         })

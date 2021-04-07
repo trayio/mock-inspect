@@ -8,7 +8,7 @@ describe("Assertion Helpers", () => {
             requestMethod: "GET",
             responseBody: "Here is your fake response",
         })
-        citiesRequest.expectNetworkRequestToNotHaveBeenMade()
+        citiesRequest.expectRequestToNotHaveBeenMade()
         await request({
             uri: "https://www.google.com/some/cities/here",
         })
@@ -37,7 +37,7 @@ describe("Assertion Helpers", () => {
 
         let expectedErrorWhenRequestMade
         try {
-            citiesRequest.expectNetworkRequestToNotHaveBeenMade()
+            citiesRequest.expectRequestToNotHaveBeenMade()
         } catch (error) {
             expectedErrorWhenRequestMade = error
         }
