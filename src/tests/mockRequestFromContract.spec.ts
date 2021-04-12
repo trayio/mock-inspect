@@ -6,6 +6,8 @@ import {
 } from "./testHelpers/requestHelpers"
 // eslint-disable-next-line no-unused-vars
 import {Contract} from "../types/Contract"
+// eslint-disable-next-line no-unused-vars
+import {NetworkRequestBody} from "../types/generalTypes"
 
 const citiesContract: Contract = {
     response: {
@@ -37,11 +39,19 @@ const citiesContract: Contract = {
     },
 }
 
-const exampleRequestJson = async (): Promise<RequestHelperResponse> => {
+const citiesContractWithPayload: Contract = {
+    response: {...citiesContract.response},
+    request: {...citiesContract.request, payload: {"An example": "payload"}},
+}
+
+const exampleRequestJson = async (
+    payload: NetworkRequestBody = undefined
+): Promise<RequestHelperResponse> => {
     return await request({
         uri: citiesContract.request.url,
         method: citiesContract.request.method,
         json: true,
+        body: payload,
     })
 }
 
@@ -84,6 +94,38 @@ describe("mockRequestFromContract examples", () => {
         }
         expect(expectedError.message).toBe(
             `You cannot use the method "expectRequestMadeMatchingContract" like this. It looks like this mocked request was created from a contract; in that case, you cannot pass in a contract to expectRequestMadeMatchingContract(). Just call it without any arguments, we will do the rest for you!`
+        )
+    })
+
+    it("Errors if the request that was made uses a payload but the contract does not", async () => {
+        const mock = mockRequestFromContract(citiesContract)
+        await exampleRequestJson({thisIsMyUnexpected: "payload"})
+
+        let expectedError
+        try {
+            mock.expectRequestMadeMatchingContract()
+        } catch (error) {
+            expectedError = error
+        }
+
+        expect(expectedError.message).toContain(
+            `The network request has been made, but the body with which the request was made does not match the expectations.`
+        )
+    })
+
+    it("Errors if the request that was made does not use a payload but the contract requires one", async () => {
+        const mock = mockRequestFromContract(citiesContractWithPayload)
+        await exampleRequestJson()
+
+        let expectedError
+        try {
+            mock.expectRequestMadeMatchingContract()
+        } catch (error) {
+            expectedError = error
+        }
+
+        expect(expectedError.message).toContain(
+            `The network request has been made, but the body with which the request was made does not match the expectations.`
         )
     })
 })

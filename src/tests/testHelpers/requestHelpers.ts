@@ -1,11 +1,11 @@
 import fetch from "node-fetch"
 // eslint-disable-next-line no-unused-vars
-import {NetworkResponseBody} from "../../types/generalTypes"
+import {NetworkRequestBody, NetworkResponseBody} from "../../types/generalTypes"
 
 interface RequestOptions {
     uri: string
     method?: string
-    body?: Object
+    body?: NetworkRequestBody
     json?: boolean
     headers?: {[headerName: string]: string}
 }
