@@ -5,6 +5,7 @@ import {ClientRequest, RequestOptions as CoreRequestOptions} from "http"
  * Construct a type with a set of properties K of type T
  */
 type Record<K extends keyof any, T> = {
+    // eslint-disable-next-line no-unused-vars
     [P in K]: T
 }
 
