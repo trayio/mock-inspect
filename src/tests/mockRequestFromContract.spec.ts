@@ -113,7 +113,7 @@ describe("mockRequestFromContract examples", () => {
         )
     })
 
-    it("Errors if the request that was made does not use a payload but the contract requires ones", async () => {
+    it("Errors if the request that was made does not use a payload but the contract requires one", async () => {
         const mock = mockRequestFromContract(citiesContractWithPayload)
         await exampleRequestJson()
 
