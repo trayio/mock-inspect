@@ -26,7 +26,7 @@
         "graphql-tools": "^6.2.4",
         "lodash.isobject": "^3.0.2",
         "msw": "^0.21.3",
-        "query-string": "^6.13.1",
+        "query-string": "^7.0.0",
         "uuid-readable": "0.0.2"
     },
     "devDependencies": {
