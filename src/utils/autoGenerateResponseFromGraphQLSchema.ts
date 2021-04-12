@@ -70,7 +70,7 @@ const generateSchemaWithMocks = ({
     return addMocksToSchema({
         schema: executableSchema,
         mocks: {
-            String: () => uuidReadable(),
+            String: () => uuidReadable.generate(),
             ...customTypes,
             ...fixedArrayLengthMocks,
         },
