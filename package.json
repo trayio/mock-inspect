@@ -27,7 +27,7 @@
         "lodash.isobject": "^3.0.2",
         "msw": "^0.21.3",
         "query-string": "^6.13.1",
-        "uuid-readable": "0.0.1"
+        "uuid-readable": "0.0.2"
     },
     "devDependencies": {
         "@stryker-mutator/core": "^4.1.2",
