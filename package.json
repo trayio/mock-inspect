@@ -30,9 +30,9 @@
         "uuid-readable": "0.0.2"
     },
     "devDependencies": {
-        "@stryker-mutator/core": "^4.1.2",
-        "@stryker-mutator/jest-runner": "^4.1.2",
-        "@stryker-mutator/typescript-checker": "^4.1.2",
+        "@stryker-mutator/core": "^4.5.1",
+        "@stryker-mutator/jest-runner": "^4.5.1",
+        "@stryker-mutator/typescript-checker": "^4.5.1",
         "@types/jest": "^26.0.22",
         "@types/node": "^14.14.37",
         "@typescript-eslint/eslint-plugin": "^4.22.0",
