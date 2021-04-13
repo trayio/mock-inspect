@@ -23,7 +23,7 @@
         "expect": "^26.1.0",
         "graphql": "^15.3.0",
         "graphql-query-to-json": "1.0.0",
-        "graphql-tools": "^6.2.4",
+        "graphql-tools": "^7.0.4",
         "lodash.isobject": "^3.0.2",
         "msw": "^0.21.3",
         "query-string": "^7.0.0",
