@@ -1,7 +1,3 @@
-import {
-    // eslint-disable-next-line no-unused-vars
-    HttpMethod,
-} from "../types/generalTypes"
 import {request} from "./testHelpers/requestHelpers"
 // eslint-disable-next-line no-unused-vars
 import {Contract} from "../types/Contract"
@@ -40,7 +36,7 @@ const citiesContract: Contract = {
 
 const citiesGetRequestMockRequestOptions = {
     requestPattern: /\/cities/,
-    requestMethod: "GET" as HttpMethod,
+    requestMethod: "GET",
     responseBody: "Here is your fake response",
 }
 

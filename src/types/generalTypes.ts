@@ -5,4 +5,4 @@ export interface JsonObject {
 export type ResponseStatusCode = number
 export type NetworkResponseBody = JsonObject | string
 export type NetworkRequestBody = JsonObject | string
-export type HttpMethod = "POST" | "PUT" | "GET" | "PATCH" | "DELETE" | "OPTIONS"
+export type HttpMethod = string
