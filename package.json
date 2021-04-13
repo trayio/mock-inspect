@@ -13,7 +13,6 @@
         "test": "jest",
         "test:coverage": "npm test -- --coverage",
         "test:mutation": "stryker run",
-        "updateStrykerReport": "npm run test:mutation && cp reports/mutation/html/index.html docs/mutation-testing-report/index.html",
         "updateTestCoverage": "node scripts/updateTestCoverage.js",
         "version": "auto-changelog -p && git add CHANGELOG.md"
     },
