@@ -1,0 +1,35 @@
+name: Mutation Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:mutation
+      - run: mv reports/mutation/html/index.html reports/mutation/index.html
+      - name: Upload mutation testing report
+        uses: actions/upload-artifact@v2
+        with:
+          name: mutation-testing-report
+          path: reports/mutation/index.html
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: reports
