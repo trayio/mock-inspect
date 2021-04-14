@@ -8,4 +8,4 @@ coverage/
 .config/
 report.*.json
 .stryker-tmp
-!reports/mutation/html/index.html
+reports
