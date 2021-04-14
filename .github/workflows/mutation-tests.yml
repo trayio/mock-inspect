@@ -1,8 +1,13 @@
 name: Mutation Tests
 
+# on:
+#   schedule:
+#     - cron: '0 3 1,15 * *'
+
 on:
-  schedule:
-    - cron: '0 3 1,15 * *'
+  push:
+    branches:
+      - thomas-chaplin/QA-2230/expose-mutation-testing-report-in-mock-inspect
 
 jobs:
   build:
