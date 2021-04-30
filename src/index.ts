@@ -26,7 +26,6 @@ export const mockRequestFromContract = (contract: Contract): MockedRequest => {
             requestMethod: contract.request.method,
             responseHeaders: contract.response.headers,
         },
-        contract,
         stacktrace,
     })
 }

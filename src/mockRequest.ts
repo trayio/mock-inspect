@@ -3,10 +3,8 @@ import {MockedRequest} from "./MockedRequest"
 /* eslint-disable no-unused-vars */
 import {
     MockResponseOptions,
-    ResponseHeadersObject,
 } from "./types/MockResponseOptions"
-import {NetworkResponseBody, HttpMethod} from "./types/generalTypes"
-import {Contract} from "./types/Contract"
+import {NetworkResponseBody, HttpMethod, NetworkRequestHeaders} from "./types/generalTypes"
 /* eslint-enable no-unused-vars */
 import {handleGraphQLRequest} from "./responseHandlers/graphql"
 import {handleRestRequest} from "./responseHandlers/rest"
@@ -26,7 +24,7 @@ type InternalRequestInfo = {
 type InternalResponseInfo = {
     statusCode: number
     body: any
-    headers: ResponseHeadersObject
+    headers: NetworkRequestHeaders
 }
 
 export type RequestResponseInfo = {
@@ -128,11 +126,9 @@ const validateMockOptions = (mockOpts: MockResponseOptions): void => {
 export const mockRequestBase = ({
     mockOpts,
     stacktrace,
-    contract,
 }: {
     mockOpts: MockResponseOptions
     stacktrace: string
-    contract?: Contract
 }): MockedRequest => {
     validateMockOptions(mockOpts)
     const statusCode = getStatusCode(mockOpts)
@@ -162,5 +158,5 @@ export const mockRequestBase = ({
         })
     }
 
-    return new MockedRequest(requestResponseInfo, contract, stacktrace)
+    return new MockedRequest(requestResponseInfo, stacktrace)
 }

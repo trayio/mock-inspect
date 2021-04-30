@@ -1,16 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-import {NetworkRequestBody, HttpMethod} from "./generalTypes"
+import {NetworkRequestBody, HttpMethod, NetworkRequestHeaders} from "./generalTypes"
 
 export type Contract = {
     response: {
         statusCode: number
         body?: any
-        headers?: Record<string, string | number>
+        headers?: NetworkRequestHeaders
     }
     request: {
         url: string
         method: HttpMethod
-        headers?: Record<string, string | number>
+        headers?: NetworkRequestHeaders
         payload?: NetworkRequestBody
     }
     metadata?: AdditionalContractInfo
