@@ -21,7 +21,6 @@
     "license": "MIT",
     "dependencies": {
         "graphql": "^15.3.0",
-        "graphql-query-to-json": "1.0.2",
         "graphql-tools": "^7.0.4",
         "lodash.isobject": "^3.0.2",
         "msw": "^0.21.3",
