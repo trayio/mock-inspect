@@ -6,7 +6,7 @@ import {
     MockResponseOptions,
 } from "./types/MockResponseOptions"
 // eslint-disable-next-line no-unused-vars
-import {Contract} from "./types/Contract"
+import {Example} from "./types/Example"
 export {MockedRequest} from "./MockedRequest"
 import {mockRequestBase} from "./mockRequest"
 import {generateStacktraceWithoutMockedRequestInfo} from "./utils"
@@ -16,15 +16,15 @@ export const mockRequest = (mockOpts: MockResponseOptions): MockedRequest => {
     return mockRequestBase({mockOpts, stacktrace})
 }
 
-export const mockRequestFromContract = (contract: Contract): MockedRequest => {
+export const mockRequestFromExample = (example: Example): MockedRequest => {
     const stacktrace = generateStacktraceWithoutMockedRequestInfo()
     return mockRequestBase({
         mockOpts: {
-            requestPattern: contract.request.url,
-            responseStatus: contract.response.statusCode,
-            responseBody: contract.response.body,
-            requestMethod: contract.request.method,
-            responseHeaders: contract.response.headers,
+            requestPattern: example.request.url,
+            responseStatus: example.response.statusCode,
+            responseBody: example.response.body,
+            requestMethod: example.request.method,
+            responseHeaders: example.response.headers,
         },
         stacktrace,
     })

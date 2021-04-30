@@ -8,7 +8,6 @@ import {NetworkResponseBody, HttpMethod, NetworkRequestHeaders} from "./types/ge
 /* eslint-enable no-unused-vars */
 import {handleGraphQLRequest} from "./responseHandlers/graphql"
 import {handleRestRequest} from "./responseHandlers/rest"
-export {Contract} from "./types/Contract"
 export {MockedRequest} from "./MockedRequest"
 // eslint-disable-next-line no-unused-vars
 import {MswUsedRequestHeaders} from "./utils"

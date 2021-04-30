@@ -1,15 +1,15 @@
-import {mockRequestFromContract} from ".."
+import {mockRequestFromExample} from ".."
 import {
     request,
     // eslint-disable-next-line no-unused-vars
     RequestHelperResponse,
 } from "./testHelpers/requestHelpers"
 // eslint-disable-next-line no-unused-vars
-import {Contract} from "../types/Contract"
+import {Example} from "../types/Example"
 // eslint-disable-next-line no-unused-vars
 import {NetworkRequestBody} from "../types/generalTypes"
 
-const citiesContract: Contract = {
+const citiesExample: Example = {
     response: {
         statusCode: 200,
         body: {
@@ -43,17 +43,17 @@ const exampleRequestJson = async (
     payload: NetworkRequestBody = undefined
 ): Promise<RequestHelperResponse> => {
     return await request({
-        uri: citiesContract.request.url,
-        method: citiesContract.request.method,
+        uri: citiesExample.request.url,
+        method: citiesExample.request.method,
         json: true,
         body: payload,
     })
 }
 
-describe("mockRequestFromContract examples", () => {
-    it("Can mock a basic GET request from provided contract", async () => {
-        mockRequestFromContract(citiesContract)
+describe("mockRequestFromExample", () => {
+    it("Can mock a basic GET request from provided example", async () => {
+        mockRequestFromExample(citiesExample)
         const res = await exampleRequestJson()
-        expect(res.body).toEqual(citiesContract.response.body)
+        expect(res.body).toEqual(citiesExample.response.body)
     })
 })
