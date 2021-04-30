@@ -10,6 +10,7 @@ import {
     throwErrorWithExtraMessageAndFixedStracktrace,
     isGraphQL,
     throwErrorWithFixedStacktrace,
+    normaliseRequestHeaderObject,
 } from "./utils"
 import {
     // eslint-disable-next-line no-unused-vars
@@ -19,9 +20,10 @@ import {
 import {Contract} from "./types/Contract"
 import * as jestExpect from "expect"
 // eslint-disable-next-line no-unused-vars
-import {NetworkRequestBody} from "./types/generalTypes"
+import {NetworkRequestBody, NetworkRequestHeaders} from "./types/generalTypes"
 // eslint-disable-next-line no-unused-vars
 import {ExpectRequestMadeMatchingInput} from "./types/ExpectRequestMadeMatchingInput"
+import { MockedRequestInfo } from "./types/MockedRequestInfo"
 
 export class MockedRequest {
     constructor(
@@ -41,6 +43,21 @@ export class MockedRequest {
 
     public expectRequestToNotHaveBeenMade() {
         this.expectNetworkRequestToHaveBeenMadeFactory(false)
+    }
+
+    private getUsedRequestHeaders(): NetworkRequestHeaders {
+        const headers = this.requestResponseInfo.headers.map || {}
+        return normaliseRequestHeaderObject(headers)
+    }
+
+    public inspect(): MockedRequestInfo {
+        this.expectRequestToHaveBeenMade()
+        const requestBody = this.requestResponseInfo.body
+        const requestHeaders = this.getUsedRequestHeaders()
+        return {
+            requestBody,
+            requestHeaders,
+        }
     }
 
     public expectRequestMadeMatchingContract(passedInContract?: Contract) {

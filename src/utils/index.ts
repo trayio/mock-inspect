@@ -2,7 +2,7 @@ import * as jestExpect from "expect"
 import * as isObject from "lodash.isobject"
 import * as queryStringParser from "query-string"
 // eslint-disable-next-line no-unused-vars
-import {NetworkRequestBody, JsonObject} from "../types/generalTypes"
+import {NetworkRequestBody, JsonObject, NetworkRequestHeaders} from "../types/generalTypes"
 import {graphQlQueryToJson} from "graphql-query-to-json"
 // eslint-disable-next-line no-unused-vars
 import {RequestHeadersNormalised} from "../types/ExpectRequestMadeMatchingInput"
@@ -22,12 +22,8 @@ import {setResponseBody} from "../responseHandlers/common"
 // eslint-disable-next-line no-unused-vars
 import {ResponseComposition} from "msw/lib/types/response"
 
-export interface RequestHeaders {
-    [headerName: string]: string
-}
-
 export interface MswUsedRequestHeaders {
-    map: RequestHeaders
+    map: NetworkRequestHeaders
 }
 
 export interface QueryParameters {
@@ -89,7 +85,7 @@ interface RequestHeadersWithArrayValues {
 }
 
 export const normaliseRequestHeaderObject = (
-    requestHeaders: RequestHeaders | RequestHeadersWithArrayValues
+    requestHeaders: NetworkRequestHeaders | RequestHeadersWithArrayValues
 ): RequestHeadersNormalised => {
     const headers = {}
     Object.keys(requestHeaders).forEach((header) => {
@@ -107,7 +103,7 @@ export const normaliseRequestHeaderObject = (
 
 export const checkRequestContainedDesiredHeaders = (
     usedRequestHeaders: MswUsedRequestHeaders,
-    desiredRequestHeaders: RequestHeaders,
+    desiredRequestHeaders: NetworkRequestHeaders,
     stacktrace: string
 ) => {
     const desiredHeaders = normaliseRequestHeaderObject(desiredRequestHeaders)
