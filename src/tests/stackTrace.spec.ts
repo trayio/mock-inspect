@@ -41,40 +41,4 @@ describe("Stack traces stop at calling function, don't include mock-inspect spec
         }
         expect(expectedError.stack).toMatch(regexForErrorInThisFile)
     })
-
-    it("expectRequestMadeMatching()", async () => {
-        const url = "https://www.google.com/hello"
-        const req = mockRequest({requestPattern: url, responseBody: {a: "b"}})
-        await exampleRequestJson(url)
-        let expectedError
-        try {
-            req.expectRequestMadeMatching({
-                requestPayload: {me: "Hello"},
-            })
-        } catch (error) {
-            expectedError = error
-        }
-        expect(expectedError.stack).toMatch(regexForErrorInThisFile)
-    })
-
-    it("expectRequestMadeMatchingContract()", async () => {
-        const url = "https://www.google.com/hello"
-        const req = mockRequest({requestPattern: url, responseBody: {a: "b"}})
-        await exampleRequestJson(url)
-        let expectedError
-        try {
-            req.expectRequestMadeMatchingContract({
-                request: {
-                    method: "GET",
-                    url: "http://www.starwars.de",
-                },
-                response: {
-                    statusCode: 401,
-                },
-            })
-        } catch (error) {
-            expectedError = error
-        }
-        expect(expectedError.stack).toMatch(regexForErrorInThisFile)
-    })
 })

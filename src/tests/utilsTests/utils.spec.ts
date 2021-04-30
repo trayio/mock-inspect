@@ -13,27 +13,30 @@ describe("Utils", () => {
 
     describe("Normalise request header object helper", () => {
         it("Converts header values to lower-case if passed as regular string", () => {
-            const toNormalise = {
-                KeyA: "PropertyA",
-            }
-            expect(normaliseRequestHeaderObject(toNormalise)).toEqual({
+            expect(
+                normaliseRequestHeaderObject({
+                    KeyA: "PropertyA",
+                })
+            ).toEqual({
                 keya: "propertya",
             })
         })
         it("Converts header values to lower-case if passed as array", () => {
-            const toNormalise = {
-                KeyA: ["PropertyA"],
-            }
-            expect(normaliseRequestHeaderObject(toNormalise)).toEqual({
+            expect(
+                normaliseRequestHeaderObject({
+                    KeyA: ["PropertyA"],
+                })
+            ).toEqual({
                 keya: "propertya",
             })
         })
         it("Converts header values to lower-case if mixed", () => {
-            const toNormalise = {
-                KeyA: "PropertyA",
-                KeyB: ["Poperty B"],
-            }
-            expect(normaliseRequestHeaderObject(toNormalise)).toEqual({
+            expect(
+                normaliseRequestHeaderObject({
+                    KeyA: "PropertyA",
+                    KeyB: ["Poperty B"],
+                })
+            ).toEqual({
                 keya: "propertya",
                 keyb: "poperty b",
             })

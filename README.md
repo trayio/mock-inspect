@@ -68,14 +68,14 @@ await request(`query SecondQuery { animals { cats } }`)
 await request(`mutation FirstMutation(call: "Meow") { id }`)
 ```
 
-## mockRequestFromContract
+## mockRequestFromExample
 
-Mocks a request based on a contract and returns a [MockedRequest](#mockedrequest) object. A contract is an object which holds all the details of a network request - how it is supposed to be made and what it is supposed to return. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Contract.ts) for details of properties you can enter.
+Mocks a request based on an example and returns a [MockedRequest](#mockedrequest) object. An example is an object which holds all the details of a network request - how it is supposed to be made and what it is supposed to return. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Example.ts) for details of properties you can enter.
 
 ```js
-const {mockRequestFromContract} = require("mock-inspect")
+const {mockRequestFromExample} = require("mock-inspect")
 
-const loginContract = {
+const loginExample = {
     response: {
         statusCode: 201,
         body: "Welcome!",
@@ -92,9 +92,9 @@ const loginContract = {
         }
     }
 }
-const loginRequest = mockRequestFromContract(loginContract)
+const loginRequest = mockRequestFromExample(loginExample)
 // ... make a network request somewhere in your actual code ...
-loginRequest.expectRequestMadeMatchingContract()
+loginRequest.expectRequestToHaveBeenMade()
 ```
 
 ## MockedRequest
@@ -117,59 +117,6 @@ Asserts that the network request you mocked was not called.
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
 loginRequest.expectRequestToNotHaveBeenMade()
-```
-
-### expectRequestMadeMatching
-
-Asserts that the network request you mocked was called with the expected properties. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/ExpectRequestMadeMatchingInput.ts) for details of the properties you can provide here.
-
-If you created your mocked request from a contract, you most likely want to use [expectRequestMadeMatchingContract](##expectrequestmadematchingcontract) instead.
-
-```js
-const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectRequestMadeMatching({
-    requestPayload: {
-        "username": "HanSolo",
-        "password": "Never tell me the odds!"
-    },
-    requestHeaders: {
-        "Authorization": "I provided my token in the request header"
-    }
-})
-```
-
-### expectRequestMadeMatchingContract
-
-Asserts that the network request you mocked was called with the expected properties as provided in the contract. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Contract.ts) for details of how a Contract looks like.
-
-If you create your MockedRequest object using `mockRequestFromContract`, you do not have to pass in any arguments to `expectRequestMadeMatchingContract`. If you created your MockedRequest using `mockRequest`, you have to pass in a contract though so that we can know what expectations you refer to.
-
-```js
-const loginContract = {
-    response: {
-        statusCode: 201,
-        body: "Welcome!",
-        headers: {
-            "Authorization": "take your token good sir!"
-        }
-    },
-    request: {
-        url: "https://www.yourwebsite.com/login",
-        method: "POST",
-        payload: {
-            "username": "HanSolo",
-            "password": "Never tell me the odds!"
-        }
-    }
-}
-
-// When created using mockRequestFromContract:
-const loginRequest = mockRequestFromContract(loginContract)
-loginRequest.expectRequestMadeMatchingContract()
-
-// When created using mockRequest:
-const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectRequestMadeMatchingContract(loginContract)
 ```
 
 # Using GraphQL
@@ -234,9 +181,6 @@ await exampleGraphQLPostRequestJson(`
     }
 `)
 ```
-
-## Making graphQL contract assertions
-A note on comparing actual graphQL requests against your defined expectations: Whenever we realise that you created a mock using a URL that ended in `/graphql`, we will assume that you are using a GraphQL API. In order to compare the request payloads, we convert both payloads to JSON objects - basically a **reverse** version of the library [json-to-graphql-query](https://github.com/dupski/json-to-graphql-query). We can then compare these two objects against each other to check whether all properties have been set or whether some have been missing.
 
 # Setting up your test suite
 
