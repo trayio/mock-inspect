@@ -2,11 +2,9 @@ import * as jestExpect from "expect"
 import * as isObject from "lodash.isobject"
 // eslint-disable-next-line no-unused-vars
 import {
-    NetworkRequestBody,
     JsonObject,
     NetworkRequestHeaders,
 } from "../types/generalTypes"
-import {graphQlQueryToJson} from "graphql-query-to-json"
 // eslint-disable-next-line no-unused-vars
 import {RequestResponseInfo} from "../mockRequest"
 // eslint-disable-next-line no-unused-vars
