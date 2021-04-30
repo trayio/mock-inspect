@@ -1,4 +1,3 @@
-import { inspect } from "node:util"
 import {mockRequest} from ".."
 import {request} from "./testHelpers/requestHelpers"
 
@@ -205,7 +204,9 @@ describe("Assertion Helpers", () => {
             })
             const requestInfo = citiesRequest.inspect()
             expect(requestInfo.requestBody).toEqual(bodyUsed)
-            expect(requestInfo.requestHeaders.header_name_1).toBe("header_value_1")
+            expect(requestInfo.requestHeaders.header_name_1).toBe(
+                "header_value_1"
+            )
         })
 
         it("returns empty string for requestBody if POST request was made without payload", async () => {

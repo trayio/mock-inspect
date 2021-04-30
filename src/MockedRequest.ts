@@ -23,7 +23,7 @@ import * as jestExpect from "expect"
 import {NetworkRequestBody, NetworkRequestHeaders} from "./types/generalTypes"
 // eslint-disable-next-line no-unused-vars
 import {ExpectRequestMadeMatchingInput} from "./types/ExpectRequestMadeMatchingInput"
-import { MockedRequestInfo } from "./types/MockedRequestInfo"
+import {MockedRequestInfo} from "./types/MockedRequestInfo"
 
 export class MockedRequest {
     constructor(

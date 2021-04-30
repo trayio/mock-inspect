@@ -1,4 +1,4 @@
-import { NetworkRequestHeaders, NetworkResponseBody } from "./generalTypes"
+import {NetworkRequestHeaders, NetworkResponseBody} from "./generalTypes"
 
 export interface MockedRequestInfo {
     requestBody: NetworkResponseBody
