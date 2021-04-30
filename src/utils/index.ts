@@ -84,8 +84,12 @@ export const compareRequestBodies = (
     }
 }
 
-const normaliseRequestHeaderObject = (
-    requestHeaders: RequestHeaders
+interface RequestHeadersWithArrayValues {
+    [headerName: string]: string[] | string
+}
+
+export const normaliseRequestHeaderObject = (
+    requestHeaders: RequestHeaders | RequestHeadersWithArrayValues
 ): RequestHeadersNormalised => {
     const headers = {}
     Object.keys(requestHeaders).forEach((header) => {

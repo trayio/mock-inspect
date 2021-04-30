@@ -93,17 +93,32 @@ const isGraphQLMock = (mockOpts: MockResponseOptions): boolean => {
     return isGraphQL
 }
 
-const validateMockOptions = (mockOpts: MockResponseOptions): void => {
+const mockOptsMissPathAndQueryName = (
+    mockOpts: MockResponseOptions
+): boolean => {
+    return (
+        !mockOpts.graphQLMutationName &&
+        !mockOpts.graphQLQueryName &&
+        !mockOpts.requestPattern
+    )
+}
+
+const mockOptsHaveMutationAndQueryName = (
+    mockOpts: MockResponseOptions
+): boolean => {
     if (mockOpts.graphQLMutationName && mockOpts.graphQLQueryName) {
+        return true
+    }
+    return false
+}
+
+const validateMockOptions = (mockOpts: MockResponseOptions): void => {
+    if (mockOptsHaveMutationAndQueryName(mockOpts)) {
         throw new Error(
             "You passed graphQLMutationName AND graphQLQueryName into the mock options - please pick one, you can't have both."
         )
     }
-    if (
-        !mockOpts.graphQLMutationName &&
-        !mockOpts.graphQLQueryName &&
-        !mockOpts.requestPattern
-    ) {
+    if (mockOptsMissPathAndQueryName(mockOpts)) {
         throw new Error(
             "Not enough options passed. When mocking REST requests, we need to know of the `requestPattern` property. When mocking graphQL requests, we need to know of the `graphQLQueryName` OR `graphQLMutationName` property. (With graphQL, you can optionally also pass a requestPattern though to make the mock more specific.)"
         )

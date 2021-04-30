@@ -153,17 +153,32 @@ export class MockedRequest {
         )
     }
 
+    private wasInvokedWithContractAndAlsoPassed(
+        passedInContract: Contract
+    ): boolean {
+        if (passedInContract && this.contract) {
+            return true
+        }
+        return false
+    }
+
+    private wasNeitherInvokedWithContractNorPassed(
+        passedInContract: Contract
+    ): boolean {
+        return !passedInContract && !this.contract
+    }
+
     private getContractForMockedRequest(
         stacktrace: string,
         passedInContract?: Contract
     ): Contract {
-        if (passedInContract && this.contract) {
+        if (this.wasInvokedWithContractAndAlsoPassed(passedInContract)) {
             throwErrorWithFixedStacktrace(
                 `You cannot use the method "expectRequestMadeMatchingContract" like this. It looks like this mocked request was created from a contract; in that case, you cannot pass in a contract to expectRequestMadeMatchingContract(). Just call it without any arguments, we will do the rest for you!`,
                 stacktrace
             )
         }
-        if (!passedInContract && !this.contract) {
+        if (this.wasNeitherInvokedWithContractNorPassed(passedInContract)) {
             throwErrorWithFixedStacktrace(
                 `You cannot use the method "expectRequestMadeMatchingContract" like this. It looks like this mocked request was not created from a contract - if you don't create a network request from a contract, please pass in a contract into expectRequestMadeMatchingContract() manually so that we know what to assert against.`,
                 stacktrace
