@@ -20,13 +20,11 @@
     "homepage": "https://github.com/trayio/mock-inspect",
     "license": "MIT",
     "dependencies": {
-        "expect": "^26.1.0",
         "graphql": "^15.3.0",
         "graphql-query-to-json": "1.0.2",
         "graphql-tools": "^7.0.4",
         "lodash.isobject": "^3.0.2",
         "msw": "^0.21.3",
-        "query-string": "^7.0.0",
         "uuid-readable": "0.0.2"
     },
     "devDependencies": {
