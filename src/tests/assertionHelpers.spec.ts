@@ -186,8 +186,8 @@ describe("Assertion Helpers", () => {
         })
     })
 
-    describe.only("inspect returns information about how the request was made", () => {
-        it("returns information if POST request was made", async () => {
+    describe("inspect returns information about how the request was made", () => {
+        it("returns information if request was made", async () => {
             const citiesRequest = mockRequest({
                 requestPattern: /\/cities/,
                 requestMethod: "POST",
@@ -234,6 +234,23 @@ describe("Assertion Helpers", () => {
             })
             const requestInfo = citiesRequest.inspect()
             expect(requestInfo.requestBody).toEqual("")
+        })
+
+        it("Fails if request hasn't been made yet", () => {
+            const citiesRequest = mockRequest({
+                requestPattern: /\/cities/,
+                requestMethod: "GET",
+                responseBody: "Here is your fake response",
+            })
+            let expectedErrorWhenRequestNotMade
+            try {
+                citiesRequest.inspect()
+            } catch (error) {
+                expectedErrorWhenRequestNotMade = error
+            }
+            expect(expectedErrorWhenRequestNotMade.message).toMatch(
+                "You expected that the request has been made, but it was not."
+            )
         })
     })
 })
