@@ -1,11 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import {HttpMethod} from "./generalTypes"
+import {HttpMethod, NetworkRequestHeaders} from "./generalTypes"
 
 export type Pattern = string | RegExp
-export type ResponseHeadersObject = {
-    [headerName: string]: string | boolean | number
-}
-
 export interface GraphQLAutoMockingCustomTypes {
     [typeName: string]: () => any
 }
@@ -58,7 +54,7 @@ export interface MockResponseOptions {
      * The headers the mocked response should return. Object type, key-value
      * pairs of header name and header value. Empty by default. Optional.
      */
-    responseHeaders?: ResponseHeadersObject
+    responseHeaders?: NetworkRequestHeaders
     /**
      * By default, the mocks you set up only last for one request and the response
      * handler gets cleared after the request has been made. If this flag is
