@@ -1,5 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import {NetworkRequestBody, HttpMethod, NetworkRequestHeaders} from "./generalTypes"
+import {
+    NetworkRequestBody,
+    HttpMethod,
+    NetworkRequestHeaders,
+} from "./generalTypes"
 
 export type Example = {
     response: {

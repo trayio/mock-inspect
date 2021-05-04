@@ -1,10 +1,7 @@
 import * as jestExpect from "expect"
 import * as isObject from "lodash.isobject"
 // eslint-disable-next-line no-unused-vars
-import {
-    JsonObject,
-    NetworkRequestHeaders,
-} from "../types/generalTypes"
+import {JsonObject, NetworkRequestHeaders} from "../types/generalTypes"
 // eslint-disable-next-line no-unused-vars
 import {RequestResponseInfo} from "../mockRequest"
 // eslint-disable-next-line no-unused-vars
