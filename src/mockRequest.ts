@@ -3,14 +3,11 @@ import {MockedRequest} from "./MockedRequest"
 /* eslint-disable no-unused-vars */
 import {
     MockResponseOptions,
-    ResponseHeadersObject,
 } from "./types/MockResponseOptions"
-import {NetworkResponseBody, HttpMethod} from "./types/generalTypes"
-import {Contract} from "./types/Contract"
+import {NetworkResponseBody, HttpMethod, NetworkRequestHeaders} from "./types/generalTypes"
 /* eslint-enable no-unused-vars */
 import {handleGraphQLRequest} from "./responseHandlers/graphql"
 import {handleRestRequest} from "./responseHandlers/rest"
-export {Contract} from "./types/Contract"
 export {MockedRequest} from "./MockedRequest"
 // eslint-disable-next-line no-unused-vars
 import {MswUsedRequestHeaders} from "./utils"
@@ -26,7 +23,7 @@ type InternalRequestInfo = {
 type InternalResponseInfo = {
     statusCode: number
     body: any
-    headers: ResponseHeadersObject
+    headers: NetworkRequestHeaders
 }
 
 export type RequestResponseInfo = {
@@ -93,17 +90,32 @@ const isGraphQLMock = (mockOpts: MockResponseOptions): boolean => {
     return isGraphQL
 }
 
-const validateMockOptions = (mockOpts: MockResponseOptions): void => {
+const mockOptsMissPathAndQueryName = (
+    mockOpts: MockResponseOptions
+): boolean => {
+    return (
+        !mockOpts.graphQLMutationName &&
+        !mockOpts.graphQLQueryName &&
+        !mockOpts.requestPattern
+    )
+}
+
+const mockOptsHaveMutationAndQueryName = (
+    mockOpts: MockResponseOptions
+): boolean => {
     if (mockOpts.graphQLMutationName && mockOpts.graphQLQueryName) {
+        return true
+    }
+    return false
+}
+
+const validateMockOptions = (mockOpts: MockResponseOptions): void => {
+    if (mockOptsHaveMutationAndQueryName(mockOpts)) {
         throw new Error(
             "You passed graphQLMutationName AND graphQLQueryName into the mock options - please pick one, you can't have both."
         )
     }
-    if (
-        !mockOpts.graphQLMutationName &&
-        !mockOpts.graphQLQueryName &&
-        !mockOpts.requestPattern
-    ) {
+    if (mockOptsMissPathAndQueryName(mockOpts)) {
         throw new Error(
             "Not enough options passed. When mocking REST requests, we need to know of the `requestPattern` property. When mocking graphQL requests, we need to know of the `graphQLQueryName` OR `graphQLMutationName` property. (With graphQL, you can optionally also pass a requestPattern though to make the mock more specific.)"
         )
@@ -113,11 +125,9 @@ const validateMockOptions = (mockOpts: MockResponseOptions): void => {
 export const mockRequestBase = ({
     mockOpts,
     stacktrace,
-    contract,
 }: {
     mockOpts: MockResponseOptions
     stacktrace: string
-    contract?: Contract
 }): MockedRequest => {
     validateMockOptions(mockOpts)
     const statusCode = getStatusCode(mockOpts)
@@ -147,5 +157,5 @@ export const mockRequestBase = ({
         })
     }
 
-    return new MockedRequest(requestResponseInfo, contract, stacktrace)
+    return new MockedRequest(requestResponseInfo, stacktrace)
 }

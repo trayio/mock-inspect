@@ -1,22 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-import {NetworkRequestBody, HttpMethod} from "./generalTypes"
+import {NetworkRequestBody, HttpMethod, NetworkRequestHeaders} from "./generalTypes"
 
-export type Contract = {
+export type Example = {
     response: {
         statusCode: number
         body?: any
-        headers?: Record<string, string | number>
+        headers?: NetworkRequestHeaders
     }
     request: {
         url: string
         method: HttpMethod
-        headers?: Record<string, string | number>
+        headers?: NetworkRequestHeaders
         payload?: NetworkRequestBody
     }
-    metadata?: AdditionalContractInfo
+    metadata?: AdditionalExampleInfo
 }
 
-interface AdditionalContractInfo {
+interface AdditionalExampleInfo {
     testName?: string
     date: string
 }

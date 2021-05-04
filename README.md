@@ -10,7 +10,30 @@ mock-inspect
 [![Mutation badge](https://img.shields.io/badge/Mutation%20Coverage-88.93-green)](https://trayio.github.io/mock-inspect/mutation/)
 
 
-Mock network requests and make assertions about how these requests happened. Supports auto-mocking of graphQL requests given a valid schema.
+Mocks network requests and allows you to make assertions about how these requests happened. Supports auto-mocking of graphQL requests given a valid schema.
+
+An example using jest:
+
+```js
+// Let's imagine we are testing an application in which the user has to login.
+// We set up a mock for the /login endpoint to not use the real API in our test.
+const mock = mockRequest({
+    requestPattern: "https://www.yourwebsite.com/login",
+    requestMethod: "POST",
+    responseStatus: 201,
+    responseBody: "Welcome!"
+})
+// Once the mock is set up, we will execute the application code in our test
+// which makes a request to the /login endpoint - the response will be mocked.
+// ... Execute your application code which would perform the login ...
+// After the request has been executed, we can see how our application made the
+// request. For our login scenario, we could check that the application
+// forwards the username and password in the correct format as POST payload.
+const requestProps = mock.inspect()
+expect(requestProps.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
+```
+
+# Table of Contents
 
 1. [Available functions and classes](#available-functions-and-classes)
 2. [Using GraphQL](#using-graphql)
@@ -24,14 +47,18 @@ Please find below a list of available functions and class methods. For detailed 
 
 ## mockRequest
 
-Mocks a request from scratch using the details you provide and returns a [MockedRequest](#mockedrequest) object. When creating multiple mocks for the same URL, we will always use the response details of the last call to `mockRequest`.
+Mocks a request from scratch using the details you provide.
 
 Receives an object which defines the properties of the request to be mocked and the response to be returned. [Check out the type definition](https://github.com/trayio/mock-inspect/tree/main/src/types/MockResponseOptions.ts) for details of properties you can enter.
 
+Returns an instance of the [MockedRequest](#mockedrequest) object. You can call available methods from this object to inspect the request.
+
+When creating multiple mocks for the same URL, we will always use the response details of the last call to `mockRequest`.
+
 ```js
 const {mockRequest} = require("mock-inspect")
-
-const loginRequest = mockRequest({
+// Set up mock:
+const mock = mockRequest({
     requestPattern: "https://www.yourwebsite.com/login",
     requestMethod: "POST",
     responseStatus: 201,
@@ -40,10 +67,13 @@ const loginRequest = mockRequest({
         "Authorization": "take your token good sir!"
     }
 })
-// ... make a network request somewhere in your actual code ...
-// Use available methods on MockedRequest to make assertions
-// about how the network request has been made.
-loginRequest.expectRequestToHaveBeenMade()
+// You can now use all available methods on the MockedRequest class, such as
+// checking that the request has been made or inspecting which properties have
+// been used to make it:
+mock.expectRequestToHaveBeenMade()
+const requestProps = mock.inspect()
+// You can use the requestProps object to make assertions how the request was
+// made. See 'inspect' in this documentation for more information.
 ```
 
 ### Using mockRequest for graphQL
@@ -68,14 +98,14 @@ await request(`query SecondQuery { animals { cats } }`)
 await request(`mutation FirstMutation(call: "Meow") { id }`)
 ```
 
-## mockRequestFromContract
+## mockRequestFromExample
 
-Mocks a request based on a contract and returns a [MockedRequest](#mockedrequest) object. A contract is an object which holds all the details of a network request - how it is supposed to be made and what it is supposed to return. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Contract.ts) for details of properties you can enter.
+Mocks a request based on an example and returns a [MockedRequest](#mockedrequest) object. An example is an object which holds all the details of a network request - how it is supposed to be made and what it is supposed to return. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Example.ts) for details of properties you can enter.
 
 ```js
-const {mockRequestFromContract} = require("mock-inspect")
+const {mockRequestFromExample} = require("mock-inspect")
 
-const loginContract = {
+const loginExample = {
     response: {
         statusCode: 201,
         body: "Welcome!",
@@ -92,18 +122,48 @@ const loginContract = {
         }
     }
 }
-const loginRequest = mockRequestFromContract(loginContract)
+const loginRequest = mockRequestFromExample(loginExample)
 // ... make a network request somewhere in your actual code ...
-loginRequest.expectRequestMadeMatchingContract()
+loginRequest.expectRequestToHaveBeenMade()
 ```
 
 ## MockedRequest
 
 Every time you mock a request, you get hold of this class which has the following methods:
 
+### inspect
+
+Returns an object with information about how the network request has been made, using the properties `requestBody` and `requestHeaders`. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/MockedRequestInfo.ts) for details of the returned properties.
+
+If the request has not been made yet on time of calling `.inspect()`, an error message will be thrown.
+
+You can use the request information object in any way you like - you could check for equality, test whether the schema matches (i.e. using [jest-json-schema-extended](https://github.com/rickschubert/jest-json-schema-extended)) and many more!
+
+```js
+// Set up mock:
+const mock = mockRequest({
+    requestPattern: "https://www.yourwebsite.com/login",
+    requestMethod: "POST",
+    responseStatus: 201,
+    responseBody: "Welcome!",
+    responseHeaders: {
+        "Authorization": "take your token good sir!"
+    }
+})
+// ... Execute in your test application code which should make the request ...
+// Use `inspect()` to retrieve information about how the request has been made.
+// In the example below, we would use jest's expect method that the request body
+// included the correct properties and that JSON format was specified in the
+// request headers. You don't have to use jest's expect though - you can use
+// the returned object of request information in any way you like!
+const requestProps = mock.inspect()
+expect(requestProps.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
+expect(requestProps.requestHeaders["content-type"]).toEqual("application/json")
+```
+
 ### expectRequestToHaveBeenMade
 
-Asserts that the network request you mocked also has been called.
+Asserts that the network request you mocked has been called.
 
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
@@ -117,59 +177,6 @@ Asserts that the network request you mocked was not called.
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
 loginRequest.expectRequestToNotHaveBeenMade()
-```
-
-### expectRequestMadeMatching
-
-Asserts that the network request you mocked was called with the expected properties. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/ExpectRequestMadeMatchingInput.ts) for details of the properties you can provide here.
-
-If you created your mocked request from a contract, you most likely want to use [expectRequestMadeMatchingContract](##expectrequestmadematchingcontract) instead.
-
-```js
-const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectRequestMadeMatching({
-    requestPayload: {
-        "username": "HanSolo",
-        "password": "Never tell me the odds!"
-    },
-    requestHeaders: {
-        "Authorization": "I provided my token in the request header"
-    }
-})
-```
-
-### expectRequestMadeMatchingContract
-
-Asserts that the network request you mocked was called with the expected properties as provided in the contract. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Contract.ts) for details of how a Contract looks like.
-
-If you create your MockedRequest object using `mockRequestFromContract`, you do not have to pass in any arguments to `expectRequestMadeMatchingContract`. If you created your MockedRequest using `mockRequest`, you have to pass in a contract though so that we can know what expectations you refer to.
-
-```js
-const loginContract = {
-    response: {
-        statusCode: 201,
-        body: "Welcome!",
-        headers: {
-            "Authorization": "take your token good sir!"
-        }
-    },
-    request: {
-        url: "https://www.yourwebsite.com/login",
-        method: "POST",
-        payload: {
-            "username": "HanSolo",
-            "password": "Never tell me the odds!"
-        }
-    }
-}
-
-// When created using mockRequestFromContract:
-const loginRequest = mockRequestFromContract(loginContract)
-loginRequest.expectRequestMadeMatchingContract()
-
-// When created using mockRequest:
-const loginRequest = mockRequest({/* mock details go here */})
-loginRequest.expectRequestMadeMatchingContract(loginContract)
 ```
 
 # Using GraphQL
@@ -234,9 +241,6 @@ await exampleGraphQLPostRequestJson(`
     }
 `)
 ```
-
-## Making graphQL contract assertions
-A note on comparing actual graphQL requests against your defined expectations: Whenever we realise that you created a mock using a URL that ended in `/graphql`, we will assume that you are using a GraphQL API. In order to compare the request payloads, we convert both payloads to JSON objects - basically a **reverse** version of the library [json-to-graphql-query](https://github.com/dupski/json-to-graphql-query). We can then compare these two objects against each other to check whether all properties have been set or whether some have been missing.
 
 # Setting up your test suite
 
