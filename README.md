@@ -12,6 +12,22 @@ mock-inspect
 
 Mock network requests and make assertions about how these requests happened. Supports auto-mocking of graphQL requests given a valid schema.
 
+An example using jest:
+
+```js
+const mock = mockRequest({
+    requestPattern: "https://www.yourwebsite.com/login",
+    requestMethod: "POST",
+    responseStatus: 201,
+    responseBody: "Welcome!"
+})
+// Retrieve information about how the request was made
+const requestInfo = mock.inspect()
+expect(requestInfo.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
+```
+
+# Table of Contents
+
 1. [Available functions and classes](#available-functions-and-classes)
 2. [Using GraphQL](#using-graphql)
 3. [Setting up your test suite](#setting-up-your-test-suite)
@@ -31,7 +47,7 @@ Receives an object which defines the properties of the request to be mocked and 
 ```js
 const {mockRequest} = require("mock-inspect")
 
-const loginRequest = mockRequest({
+const mock = mockRequest({
     requestPattern: "https://www.yourwebsite.com/login",
     requestMethod: "POST",
     responseStatus: 201,
@@ -43,7 +59,7 @@ const loginRequest = mockRequest({
 // ... make a network request somewhere in your actual code ...
 // Use available methods on MockedRequest to make assertions
 // about how the network request has been made.
-loginRequest.expectRequestToHaveBeenMade()
+const requestInfo = mock.inspect()
 ```
 
 ### Using mockRequest for graphQL
@@ -101,9 +117,30 @@ loginRequest.expectRequestToHaveBeenMade()
 
 Every time you mock a request, you get hold of this class which has the following methods:
 
+### inspect
+
+Returns an object with information about how the network request has been made, using the properties `requestBody` and `requestHeaders`. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/MockedRequestInfo.ts) for details of the returned properties.
+
+If the request has not been made yet on time of calling `.inspect()`, an error message will be thrown.
+
+```js
+const mock = mockRequest({
+    requestPattern: "https://www.yourwebsite.com/login",
+    requestMethod: "POST",
+    responseStatus: 201,
+    responseBody: "Welcome!",
+    responseHeaders: {
+        "Authorization": "take your token good sir!"
+    }
+})
+const requestInfo = mock.inspect()
+expect(requestInfo.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
+expect(requestInfo.requestHeaders["content-type"]).toEqual("application/json")
+```
+
 ### expectRequestToHaveBeenMade
 
-Asserts that the network request you mocked also has been called.
+Asserts that the network request you mocked has been called.
 
 ```js
 const loginRequest = mockRequest({/* mock details go here */})
