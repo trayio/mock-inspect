@@ -15,7 +15,7 @@ Mocks network requests and allows you to make assertions about how these request
 An example using jest:
 
 ```js
-// Let's imagine we are testing an application in which the uesr has to login.
+// Let's imagine we are testing an application in which the user has to login.
 // We set up a mock for the /login endpoint to not use the real API in our test.
 const mock = mockRequest({
     requestPattern: "https://www.yourwebsite.com/login",
@@ -23,11 +23,11 @@ const mock = mockRequest({
     responseStatus: 201,
     responseBody: "Welcome!"
 })
-// Once the mock is set up, we will execute in our test the application code
+// Once the mock is set up, we will execute the application code in our test
 // which makes a request to the /login endpoint - the response will be mocked.
 // ... Execute your application code which would perform the login ...
-// After the request has been executed, we can see how it has been made in our
-// application. For our login scenario, we could check that the application
+// After the request has been executed, we can see how our application made the
+// request. For our login scenario, we could check that the application
 // forwards the username and password in the correct format as POST payload.
 const requestProps = mock.inspect()
 expect(requestProps.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
@@ -49,11 +49,11 @@ Please find below a list of available functions and class methods. For detailed 
 
 Mocks a request from scratch using the details you provide.
 
-When creating multiple mocks for the same URL, we will always use the response details of the last call to `mockRequest`.
-
 Receives an object which defines the properties of the request to be mocked and the response to be returned. [Check out the type definition](https://github.com/trayio/mock-inspect/tree/main/src/types/MockResponseOptions.ts) for details of properties you can enter.
 
 Returns an instance of the [MockedRequest](#mockedrequest) object. You can call available methods from this object to inspect the request.
+
+When creating multiple mocks for the same URL, we will always use the response details of the last call to `mockRequest`.
 
 ```js
 const {mockRequest} = require("mock-inspect")
