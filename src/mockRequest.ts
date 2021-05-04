@@ -1,10 +1,12 @@
 import * as isObject from "lodash.isobject"
 import {MockedRequest} from "./MockedRequest"
 /* eslint-disable no-unused-vars */
+import {MockResponseOptions} from "./types/MockResponseOptions"
 import {
-    MockResponseOptions,
-} from "./types/MockResponseOptions"
-import {NetworkResponseBody, HttpMethod, NetworkRequestHeaders} from "./types/generalTypes"
+    NetworkResponseBody,
+    HttpMethod,
+    NetworkRequestHeaders,
+} from "./types/generalTypes"
 /* eslint-enable no-unused-vars */
 import {handleGraphQLRequest} from "./responseHandlers/graphql"
 import {handleRestRequest} from "./responseHandlers/rest"
