@@ -8,7 +8,7 @@ mock-inspect
 ![Line coverage](https://img.shields.io/endpoint?url=https%3A%2F%2F35fec4cb-1fbe-4aed-be1f-ea4814d9ba46.trayapp.io%2Flines)
 ![Branches badge](https://img.shields.io/endpoint?url=https%3A%2F%2F35fec4cb-1fbe-4aed-be1f-ea4814d9ba46.trayapp.io%2Fbranches)
 [![Mutation badge](https://img.shields.io/badge/Mutation%20Coverage-88.93-green)](https://trayio.github.io/mock-inspect/mutation/)
-
+[![](https://img.shields.io/npm/v/mock-inspect)](https://www.npmjs.com/package/mock-inspect)
 
 Mocks network requests and allows you to make assertions about how these requests happened. Supports auto-mocking of graphQL requests given a valid schema.
 
