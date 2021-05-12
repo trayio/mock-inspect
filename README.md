@@ -35,11 +35,23 @@ expect(requestProps.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
 
 # Table of Contents
 
-1. [Available functions and classes](#available-functions-and-classes)
-2. [Using GraphQL](#using-graphql)
-3. [Setting up your test suite](#setting-up-your-test-suite)
-4. [Unresolved promises in tests, i.e. React tests with jest](#unresolved-promises-in-tests-ie-react-tests-with-jest)
-5. [Development](#development)
+1. [Installation](#installation)
+2. [Available functions and classes](#available-functions-and-classes)
+3. [Using GraphQL](#using-graphql)
+4. [Setting up your test suite](#setting-up-your-test-suite)
+5. [Unresolved promises in tests, i.e. React tests with jest](#unresolved-promises-in-tests-ie-react-tests-with-jest)
+6. [Development](#development)
+
+# Installation
+
+Installing mock-inspect is simple: Fetch it from the npm registry using your favourite package manage, either npm or yarn.
+
+```bash
+# with npm
+npm install --save-dev mock-inspect
+# with yarn
+yarn add -D mock-inspect
+```
 
 # Available functions and classes
 
