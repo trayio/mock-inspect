@@ -5,8 +5,8 @@ import {
     // eslint-disable-next-line no-unused-vars
     MockResponseOptions,
 } from "./types/MockResponseOptions"
-// eslint-disable-next-line no-unused-vars
 import {Example} from "./types/Example"
+export {Example} from "./types/Example"
 export {MockedRequest} from "./MockedRequest"
 import {mockRequestBase} from "./mockRequest"
 import {generateStacktraceWithoutMockedRequestInfo} from "./utils"
