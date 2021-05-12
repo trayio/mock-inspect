@@ -44,7 +44,7 @@ expect(requestProps.requestBody).toEqual({username: "Han", password: "Ch3w!3"})
 
 # Installation
 
-Installing mock-inspect is simple: Fetch it from the npm registry using your favourite package manage, either npm or yarn.
+Installing mock-inspect is simple: Fetch it from the npm registry using your favourite package manager, either npm or yarn.
 
 ```bash
 # with npm
