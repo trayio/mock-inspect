@@ -37,11 +37,9 @@ export const normaliseRequestHeaderObject = (
     Object.keys(requestHeaders).forEach((header) => {
         const headerName = header.toLowerCase()
         if (Array.isArray(requestHeaders[header])) {
-            headers[headerName] = requestHeaders[header][0].toLowerCase()
+            headers[headerName] = requestHeaders[header][0]
         } else {
-            headers[headerName] = (requestHeaders[
-                header
-            ] as string).toLowerCase()
+            headers[headerName] = requestHeaders[header] as string
         }
     })
     return headers

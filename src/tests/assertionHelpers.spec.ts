@@ -66,7 +66,7 @@ describe("Assertion Helpers", () => {
             const requestInfo = citiesRequest.inspect()
             expect(requestInfo.requestBody).toEqual(bodyUsed)
             expect(requestInfo.requestHeaders.header_name_1).toBe(
-                "header_value_1"
+                "HEADER_VALUE_1"
             )
         })
 
