@@ -161,35 +161,6 @@ await request(`query SecondQuery { animals { cats } }`)
 await request(`mutation FirstMutation(call: "Meow") { id }`)
 ```
 
-## mockRequestFromExample
-
-Mocks a request based on an example and returns a [MockedRequest](#mockedrequest) object. An example is an object which holds all the details of a network request - how it is supposed to be made and what it is supposed to return. [Check out the type definition](https://github.com/trayio/mock-inspect/blob/main/src/types/Example.ts) for details of properties you can enter.
-
-```js
-const {mockRequestFromExample} = require("mock-inspect")
-
-const loginExample = {
-    response: {
-        statusCode: 201,
-        body: "Welcome!",
-        headers: {
-            "Authorization": "take your token good sir!"
-        }
-    },
-    request: {
-        url: "https://www.yourwebsite.com/login",
-        method: "POST",
-        payload: {
-            "username": "HanSolo",
-            "password": "Never tell me the odds!"
-        }
-    }
-}
-const loginRequest = mockRequestFromExample(loginExample)
-// ... make a network request somewhere in your actual code ...
-loginRequest.expectRequestToHaveBeenMade()
-```
-
 ## MockedRequest
 
 Every time you mock a request, you get hold of this class which has the following methods:
