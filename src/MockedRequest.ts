@@ -7,8 +7,6 @@ import {
     RequestResponseInfo,
 } from "./mockRequest"
 // eslint-disable-next-line no-unused-vars
-import {Example} from "./types/Example"
-// eslint-disable-next-line no-unused-vars
 import {NetworkRequestHeaders} from "./types/generalTypes"
 import {MockedRequestInfo} from "./types/MockedRequestInfo"
 

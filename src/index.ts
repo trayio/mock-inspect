@@ -5,8 +5,6 @@ import {
     // eslint-disable-next-line no-unused-vars
     MockResponseOptions,
 } from "./types/MockResponseOptions"
-import {Example} from "./types/Example"
-export {Example} from "./types/Example"
 export {MockedRequest} from "./MockedRequest"
 import {mockRequestBase} from "./mockRequest"
 import {generateStacktraceWithoutMockedRequestInfo} from "./utils"
@@ -15,21 +13,6 @@ export const mockRequest = (mockOpts: MockResponseOptions): MockedRequest => {
     const stacktrace = generateStacktraceWithoutMockedRequestInfo()
     return mockRequestBase({mockOpts, stacktrace})
 }
-
-export const mockRequestFromExample = (example: Example): MockedRequest => {
-    const stacktrace = generateStacktraceWithoutMockedRequestInfo()
-    return mockRequestBase({
-        mockOpts: {
-            requestPattern: example.request.url,
-            responseStatus: example.response.statusCode,
-            responseBody: example.response.body,
-            requestMethod: example.request.method,
-            responseHeaders: example.response.headers,
-        },
-        stacktrace,
-    })
-}
-
 export {
     cleanUpNetworkRequestMocking,
     setUpNetworkRequestMocking,
