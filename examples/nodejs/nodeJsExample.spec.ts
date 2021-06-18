@@ -1,7 +1,7 @@
 import {mockRequest} from "../../src/index"
 import {fetchFromExampleDomain} from "./index"
 
-it("should send a request to https://example.com", () => {
+it("should send a request to https://example.com", async () => {
     // Set up your mockRequest:
     const mockedRequest = mockRequest({
         requestPattern: "https://www.example.com",
@@ -22,7 +22,7 @@ it("should send a request to https://example.com", () => {
     )
 
     // Ater calling the endpoint from this test:
-    fetchFromExampleDomain()
+    await fetchFromExampleDomain()
 
     // expectRequestToHaveBeenMade should not throw an error:
     mockedRequest.expectRequestToHaveBeenMade()
