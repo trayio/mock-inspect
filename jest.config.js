@@ -2,12 +2,15 @@ const path = require("path")
 
 const rootDir = path.join(__dirname, "src")
 const testsDir = path.join(rootDir, "tests/")
+const examplesDir = path.join(__dirname, "examples/")
 const projectDirectory = __dirname
 
 module.exports = {
-    testMatch: [path.join(testsDir, "**/*.spec.ts")],
+    testMatch: [
+        path.join(testsDir, "**/*.spec.ts"),
+        path.join(examplesDir, "**/*.spec.ts"),
+    ],
     testPathIgnorePatterns: ["node_modules/"],
-    rootDir,
     setupFilesAfterEnv: [path.join(testsDir, "testHelpers/setup.ts")],
     verbose: false,
     collectCoverageFrom: ["**/*.ts", "!**/tests/**"],

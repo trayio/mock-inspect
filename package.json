@@ -11,6 +11,7 @@
         "lintFull": "npm run prettify && npm run lint -- --fix",
         "watch": "npm run build -- --watch",
         "test": "jest",
+        "test:examples": "jest",
         "test:coverage": "npm test -- --coverage",
         "test:mutation": "stryker run",
         "updateTestCoverage": "node scripts/updateTestCoverage.js",
