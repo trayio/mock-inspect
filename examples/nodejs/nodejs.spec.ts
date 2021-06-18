@@ -12,15 +12,7 @@ describe("Node.js example", () => {
         })
 
         // You can assert that the request has not been made in this test:
-        let expectedErrorWhenRequestNotMade
-        try {
-            mockedRequest.expectRequestToHaveBeenMade()
-        } catch (error) {
-            expectedErrorWhenRequestNotMade = error
-        }
-        expect(expectedErrorWhenRequestNotMade.message).toMatch(
-            "You expected that the request has been made, but it was not."
-        )
+        mockedRequest.expectRequestToNotHaveBeenMade()
 
         // Ater calling the endpoint from this test:
         await fetchFromExampleDomain()
