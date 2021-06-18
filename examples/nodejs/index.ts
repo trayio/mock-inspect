@@ -10,5 +10,7 @@ const fetch = (url) => {
     })
 }
 
-export const fetchFromExampleDomain = async () =>
-    await fetch("https://example.com")
+export const fetchFromExampleDomain = async () => {
+    const response = await fetch("https://example.com")
+    console.log("Response: ", response)
+}
