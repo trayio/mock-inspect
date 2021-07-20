@@ -59,7 +59,7 @@ export const compareRequestMadeStatusAgainstExpectation = (
     expectation: boolean,
     stacktrace: string
 ) => {
-    if (hasRequestBeenDone != expectation) {
+    if (hasRequestBeenDone !== expectation) {
         throwErrorWithFixedStacktrace(
             constructRequestMadeStatusErrorMessage(expectation),
             stacktrace
