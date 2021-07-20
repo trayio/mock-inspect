@@ -1,4 +1,3 @@
-import * as jestExpect from "expect"
 import * as isObject from "lodash.isobject"
 // eslint-disable-next-line no-unused-vars
 import {JsonObject, NetworkRequestHeaders} from "../types/generalTypes"
@@ -60,9 +59,7 @@ export const compareRequestMadeStatusAgainstExpectation = (
     expectation: boolean,
     stacktrace: string
 ) => {
-    try {
-        jestExpect(hasRequestBeenDone).toBe(expectation)
-    } catch (error) {
+    if (hasRequestBeenDone !== expectation) {
         throwErrorWithFixedStacktrace(
             constructRequestMadeStatusErrorMessage(expectation),
             stacktrace
