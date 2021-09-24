@@ -124,13 +124,9 @@ const validateMockOptions = (mockOpts: MockResponseOptions): void => {
     }
 }
 
-export const mockRequestBase = ({
-    mockOpts,
-    stacktrace,
-}: {
+export const mockRequestBase = (
     mockOpts: MockResponseOptions
-    stacktrace: string
-}): MockedRequest => {
+): MockedRequest => {
     validateMockOptions(mockOpts)
     const statusCode = getStatusCode(mockOpts)
     const method = getMethod(mockOpts)
@@ -159,5 +155,5 @@ export const mockRequestBase = ({
         })
     }
 
-    return new MockedRequest(requestResponseInfo, stacktrace)
+    return new MockedRequest(requestResponseInfo)
 }

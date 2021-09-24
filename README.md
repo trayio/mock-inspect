@@ -290,9 +290,6 @@ await flushPromises()
 # Development
 This library is based on the [msw](https://mswjs.io/) library.
 
-## Tests
-By default, mock-inspect clips the stack trace so that we don't show internals to the user when errors throw but rather point to the line in their test where they used mock-inspect which caused an error. For debugging tests, this can be annoying - so you can disable this feature by passing the environment variable `AVOID_CLIPPED_STACKTRACE=true`.
-
 _________________
 
 [Chameleon](https://github.com/trayio/mock-inspect/tree/main/assets/chameleon.png) graphic by <a href="https://pixabay.com/users/monstreh-637659/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3340930">Анна Куликова</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3340930">Pixabay</a>
