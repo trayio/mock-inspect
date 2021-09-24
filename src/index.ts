@@ -7,11 +7,9 @@ import {
 } from "./types/MockResponseOptions"
 export {MockedRequest} from "./MockedRequest"
 import {mockRequestBase} from "./mockRequest"
-import {generateStacktraceWithoutMockedRequestInfo} from "./utils"
 
 export const mockRequest = (mockOpts: MockResponseOptions): MockedRequest => {
-    const stacktrace = generateStacktraceWithoutMockedRequestInfo()
-    return mockRequestBase({mockOpts, stacktrace})
+    return mockRequestBase(mockOpts)
 }
 export {
     cleanUpNetworkRequestMocking,

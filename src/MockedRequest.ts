@@ -11,12 +11,8 @@ import {NetworkRequestHeaders} from "./types/generalTypes"
 import {MockedRequestInfo} from "./types/MockedRequestInfo"
 
 export class MockedRequest {
-    constructor(
-        private requestResponseInfo: RequestResponseInfo,
-        private stacktrace: string
-    ) {
+    constructor(private requestResponseInfo: RequestResponseInfo) {
         this.requestResponseInfo = requestResponseInfo
-        this.stacktrace = stacktrace
     }
 
     // PUBLIC METHODS **********************************************************
@@ -45,8 +41,7 @@ export class MockedRequest {
         const hasRequestBeenDone = this.requestResponseInfo.called
         compareRequestMadeStatusAgainstExpectation(
             hasRequestBeenDone,
-            expectedToBeMade,
-            this.stacktrace
+            expectedToBeMade
         )
     }
 

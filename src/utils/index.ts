@@ -56,14 +56,10 @@ const constructRequestMadeStatusErrorMessage = (expectation: boolean) => {
 
 export const compareRequestMadeStatusAgainstExpectation = (
     hasRequestBeenDone: boolean,
-    expectation: boolean,
-    stacktrace: string
+    expectation: boolean
 ) => {
     if (hasRequestBeenDone !== expectation) {
-        throwErrorWithFixedStacktrace(
-            constructRequestMadeStatusErrorMessage(expectation),
-            stacktrace
-        )
+        throw new Error(constructRequestMadeStatusErrorMessage(expectation))
     }
 }
 
@@ -116,25 +112,4 @@ export const generateMswGraphQLAutoGenerationHandler = ({
             })
         }
     )
-}
-
-export const throwErrorWithFixedStacktrace = (
-    message: string,
-    stacktrace: string
-) => {
-    const err = Error(message)
-    err.stack = stacktrace
-    throw err
-}
-
-export const generateStacktraceWithoutMockedRequestInfo = () => {
-    const stacktrace = new Error().stack
-    const lines = stacktrace.split("\n")
-    const regexForThisFile = /(dist|src)\/utils\/index\.(js|ts):\d+:\d+/
-    const regexForEntryPoint = /(dist|src)\/index\.(js|ts):\d+:\d+/
-    const linesWithoutInternals = lines.filter((line) => {
-        return !regexForThisFile.test(line) && !regexForEntryPoint.test(line)
-    })
-    const stacktraceCleaned = linesWithoutInternals.join("\n")
-    return stacktraceCleaned
 }

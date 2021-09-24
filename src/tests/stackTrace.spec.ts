@@ -17,7 +17,7 @@ const exampleRequestJson = async (
 
 const regexForErrorInThisFile = /Error: \n {4}at .+\/src\/tests\/stacktrace\.spec\.ts:\d+:\d+/i
 
-describe("Stack traces stop at calling function, don't include mock-inspect specifics", () => {
+describe("Stack traces continue to calling function, include mock-inspect specifics", () => {
     it("expectRequestToHaveBeenMade()", () => {
         const req = mockRequest({requestPattern: "/this/is/my/URL"})
         let expectedError
@@ -26,7 +26,7 @@ describe("Stack traces stop at calling function, don't include mock-inspect spec
         } catch (error) {
             expectedError = error
         }
-        expect(expectedError.stack).toMatch(regexForErrorInThisFile)
+        expect(expectedError.stack).not.toMatch(regexForErrorInThisFile)
     })
 
     it("expectRequestToNotHaveBeenMade()", async () => {
@@ -39,6 +39,6 @@ describe("Stack traces stop at calling function, don't include mock-inspect spec
         } catch (error) {
             expectedError = error
         }
-        expect(expectedError.stack).toMatch(regexForErrorInThisFile)
+        expect(expectedError.stack).not.toMatch(regexForErrorInThisFile)
     })
 })
