@@ -1,0 +1,62 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "schedule": [
+    "at any time"
+  ],
+  "packageRules": [
+    {
+      "matchCategories": [
+        "java"
+      ],
+      "groupName": "all non-major Java or Scala dependencies",
+      "groupSlug": "all-java-scala-minor-patch",
+      "excludePackageNames": [],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "matchCategories": [
+        "iac"
+      ],
+      "groupName": "all non-major terraform dependencies",
+      "groupSlug": "all-tf-minor-patch",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "matchCategories": [
+        "js"
+      ],
+      "groupName": "all non-major JS or Typescript dependencies",
+      "groupSlug": "all-js-minor-patch",
+      "excludePackageNames": [],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "matchCategories": [
+        "ci"
+      ],
+      "groupName": "all github actions dependencies",
+      "excludePackageNames": [
+        "trayio/honeycomb"
+      ],
+      "groupSlug": "all-gha"
+    },
+    {
+      "matchCategories": [
+        "ci"
+      ],
+      "matchPackageNames": [
+        "trayio/honeycomb"
+      ],
+      "prPriority": 1
+    }
+  ]
+}
